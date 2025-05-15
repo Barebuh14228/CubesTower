@@ -558,7 +558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717a4f957d2e4ae39e46e517ca98ebc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubeContainerPrefab: {fileID: 7232567703107152936, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
+  _draggableTarget: {fileID: 945802869}
+  _spawnerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
 --- !u!1 &488999296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,7 +1118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainCanvas: {fileID: 788905961}
   _scrollDragable: {fileID: 945802869}
-  _cubesPalette: {fileID: 377002670}
+  _spawnersContainer: {fileID: 377002670}
   _draggingParent: {fileID: 1631566525}
   _holeParent: {fileID: 1185654593}
   _dropParent: {fileID: 65334472}
@@ -1701,7 +1702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624355c8241e4195a6b6a28b0b8a4747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubeViewPrefab: {fileID: 2443177633378752320, guid: e02dedd9c17834b4db88f733a012df8f, type: 3}
+  _cubePrefab: {fileID: 1681329833088042050, guid: e02dedd9c17834b4db88f733a012df8f, type: 3}
 --- !u!1 &2067908686
 GameObject:
   m_ObjectHideFlags: 0
