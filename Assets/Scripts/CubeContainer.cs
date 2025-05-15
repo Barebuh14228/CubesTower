@@ -9,7 +9,7 @@ public class CubeContainer : MonoBehaviour
     private CubeController _currentCube;
 
     public bool WaitForReplace { get; private set; }
-
+    
     public void Setup(CubeController cubeController)
     {
         _currentCube = cubeController;

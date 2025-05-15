@@ -21,5 +21,10 @@ namespace DefaultNamespace
         {
             return Instantiate(cubeController);
         }
+
+        public void ReturnToPool(CubeController cubeController)
+        {
+            Destroy(cubeController.gameObject);
+        }
     }
 }

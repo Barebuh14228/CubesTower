@@ -1,6 +1,5 @@
-using System;
-using ModestTree.Util;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 namespace DefaultNamespace
@@ -10,12 +9,20 @@ namespace DefaultNamespace
         [SerializeField] private CubeView _cubeView;
         [SerializeField] private CubeDraggable _cubeDraggable;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
+        [SerializeField] private UnityEvent _onCreateEvent;
+        [SerializeField] private UnityEvent _onDestroyEvent;
         
         [Inject] private GameManager _gameManager;
+        [Inject] private UIController _uiController;
+        [Inject] private CubeCreator _cubeCreator;
+        
+        private RectTransform _rectTransform;
+        private Vector3[] _corners = new Vector3[4];
         
         private void Start()
         {
-            _cubeDraggable.SetDragFinishAction(DragFinishAction);
+            _onCreateEvent?.Invoke();
+            _rectTransform = GetComponent<RectTransform>();
         }
 
         public void Setup(Sprite sprite)
@@ -33,9 +40,30 @@ namespace DefaultNamespace
             SetDraggableTarget(_cubeDraggable);
         }
 
-        private void DragFinishAction()
+        public void DragCube()
         {
-            _gameManager.OnCubeDropped(this);
+            transform.SetParent(_uiController.DraggingParent, true);
+        }
+        
+        public void DropCube()
+        {
+            _gameManager.TryDropCube(this);
+        }
+
+        public void DestroyCube()
+        {
+            _onDestroyEvent?.Invoke();
+        }
+        
+        public void ReturnToPool()
+        {
+            _cubeCreator.ReturnToPool(this);
+        }
+
+        public Vector3[] GetCorners()
+        {
+            _rectTransform.GetWorldCorners(_corners);
+            return _corners;
         }
     }
 }

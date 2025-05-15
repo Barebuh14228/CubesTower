@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace DefaultNamespace
 {
+    //todo требуется написать систему определяющую пересечение rect-а с определенной зоной, причем как с квадратной так и с овальной
+    
     public class GameManager : MonoBehaviour
     {
         [Inject] private CubeCreator _cubeCreator;
@@ -27,14 +32,28 @@ namespace DefaultNamespace
             }
         }
         
-        public void OnCubeDropped(CubeController cubeController)
+        public void TryDropCube(CubeController cubeController)
         {
+            //todo выяснить попали ли мы в контейнеры HoleParent и DropParent
+            //todo если не попали, тогда уничтожаем кубик
+            //todo если кубик был из палитры то создаем новый на замену
+            
+            //как выяснилось, когда у канваса Screen Space выставлен в Overlay, свойство position у RectTranform
+            //совпадает с его позицией на экране, хотя по идее должен возвращать мировую координату
+
+            var corners = cubeController.GetCorners();
+            
+            foreach (var c in corners)
+            {
+                var contains = RectTransformUtility.RectangleContainsScreenPoint(_uiController.HoleParent, c);
+            }
+            
             var cube = _cubeCreator.CreateCube(cubeController);
             cube.SetDraggableTarget(_uiController.ScrollDraggable);
             
             _uiController.CubesPalette.ReplaceCube(cube);
             
-            Destroy(cubeController.gameObject);
+            cubeController.DestroyCube();
         }
     }
 }
