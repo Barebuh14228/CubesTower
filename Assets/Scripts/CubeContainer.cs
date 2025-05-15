@@ -1,26 +1,23 @@
 using DefaultNamespace;
 using UnityEngine;
+using Zenject;
 
 public class CubeContainer : MonoBehaviour
 {
-    [SerializeField] private DragEventsProvider _dragEventsProvider;
-    [SerializeField] private CubeDraggable _cubeDraggableComponent;
+    [SerializeField] private RectTransform _container;
+    
+    [Inject] private CubeCreator _cubeCreator;
+    
+    private CubeController _currentCube;
 
-    public void Setup()
+    public void Setup(CubeController cubeController)
     {
-        _cubeDraggableComponent.OnDragFinished += GetNewCube;
+        _currentCube = cubeController;
+        _currentCube.transform.SetParent(_container);
     }
     
     public void OnPressAnimationComplete()
     {
-        _dragEventsProvider.SetTarget(_cubeDraggableComponent);
-    }
-
-    private void GetNewCube()
-    {
-        _cubeDraggableComponent.OnDragFinished -= GetNewCube;
-        
-        //todo что-то должно создать кубик, выставить его DragEventsProvider-у target и поместить его в контейнер
-        //todo контейнер должен выставить себе _dragEventsProvider и _cubeDraggableComponent
+        _currentCube.SetCubeAsDraggableTarget();
     }
 }
