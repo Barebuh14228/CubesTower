@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace DefaultNamespace
+namespace DragAndDrop
 {
     [RequireComponent(typeof(ScrollRect))]
     public class ScrollDraggable : CustomDraggable

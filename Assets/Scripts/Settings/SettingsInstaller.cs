@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace DefaultNamespace
+namespace Settings
 {
     [CreateAssetMenu(fileName = "SettingsInstaller", menuName = "Settings/SettingsInstaller", order = 1)]
     public class SettingsInstaller : ScriptableObjectInstaller

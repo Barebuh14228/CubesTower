@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace DefaultNamespace
+namespace DragAndDrop
 {
     public class CubeDraggable : CustomDraggable
     {

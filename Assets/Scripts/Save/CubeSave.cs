@@ -1,4 +1,4 @@
-namespace DefaultNamespace.Save
+namespace Save
 {
     public class CubeSave
     {

@@ -2,28 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace DefaultNamespace
+public class CubesPalette : MonoBehaviour //todo rename
 {
-    public class CubesPalette : MonoBehaviour //todo rename
-    {
-        [SerializeField] private CubeContainer _cubeContainerPrefab;
+    [SerializeField] private CubeContainer _cubeContainerPrefab;
 
-        private List<CubeContainer> _containers;
+    private List<CubeContainer> _containers;
         
-        public void AddCube(CubeController cubeController)
-        {
-            var cubeContainer = Instantiate(_cubeContainerPrefab, transform);
+    public void AddCube(CubeController cubeController)
+    {
+        var cubeContainer = Instantiate(_cubeContainerPrefab, transform);
             
-            cubeContainer.transform.SetParent(transform);
-            cubeContainer.Setup(cubeController);
+        cubeContainer.transform.SetParent(transform);
+        cubeContainer.Setup(cubeController);
             
-            _containers ??= new List<CubeContainer>();
-            _containers.Add(cubeContainer);
-        }
+        _containers ??= new List<CubeContainer>();
+        _containers.Add(cubeContainer);
+    }
 
-        public void ReplaceCube(CubeController cubeController)
-        {
-            _containers.First(c => c.WaitForReplace).Setup(cubeController);
-        }
+    public void ReplaceCube(CubeController cubeController)
+    {
+        _containers.First(c => c.WaitForReplace).Setup(cubeController);
     }
 }

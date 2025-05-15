@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Settings
 {
     [CreateAssetMenu(fileName = "CubePresets", menuName = "Settings/CubePresets", order = 1)]
     public class CubePresets : ScriptableObject
