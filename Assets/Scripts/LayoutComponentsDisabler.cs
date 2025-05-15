@@ -9,7 +9,8 @@ namespace DefaultNamespace
     public class LayoutComponentsDisabler : MonoBehaviour
     { 
         [SerializeField] private UIBehaviour[] _uiBehaviours;
-
+        [SerializeField] private bool _disableOnStart;
+        
         private RectTransform _rectTransform;
         private bool _waitForRebuild = true;
 
@@ -20,6 +21,21 @@ namespace DefaultNamespace
 
         private void Start()
         {
+            if (_disableOnStart)
+            {
+                StartCoroutine(DisableBehaviours());
+            }
+        }
+
+        public void RebuildAndDisable()
+        {
+            _waitForRebuild = true;
+            
+            foreach (var uiBehaviour in _uiBehaviours)
+            {
+                uiBehaviour.enabled = true;
+            }
+            
             StartCoroutine(DisableBehaviours());
         }
 
@@ -51,8 +67,6 @@ namespace DefaultNamespace
             {
                 uiBehaviour.enabled = false;
             }
-            
-            Debug.Log($"UIBehaviours desabled for {gameObject.name} in {framesCount} frames");
         }
     }
 }

@@ -77,6 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiBehaviours:
   - {fileID: 6690477179467474477}
+  _disableOnStart: 0
 --- !u!1 &6000325711776950885
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,3 +233,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 1195571947581352898}
+  _layoutComponentsDisabler: {fileID: 1094863241343258402}

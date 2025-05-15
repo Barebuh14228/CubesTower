@@ -8,10 +8,16 @@ namespace DefaultNamespace
     public class CubeDraggable : CustomDraggable
     {
         private RectTransform _rectTransform;
-
+        private Action _dragFinishAction;
+        
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
+        }
+
+        public void SetDragFinishAction(Action action)
+        {
+            _dragFinishAction = action;
         }
         
         public override void OnBeginDrag(PointerEventData eventData) { }
@@ -23,8 +29,7 @@ namespace DefaultNamespace
 
         public override void OnEndDrag(PointerEventData eventData)
         {
-            //todo сменить parent
-            //todo вызывать создание нового кубика, причем именно в своем контейнере
+            _dragFinishAction?.Invoke();
         }
     }
 }

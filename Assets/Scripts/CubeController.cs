@@ -1,4 +1,7 @@
+using System;
+using ModestTree.Util;
 using UnityEngine;
+using Zenject;
 
 namespace DefaultNamespace
 {
@@ -7,6 +10,13 @@ namespace DefaultNamespace
         [SerializeField] private CubeView _cubeView;
         [SerializeField] private CubeDraggable _cubeDraggable;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
+        
+        [Inject] private GameManager _gameManager;
+        
+        private void Start()
+        {
+            _cubeDraggable.SetDragFinishAction(DragFinishAction);
+        }
 
         public void Setup(Sprite sprite)
         {
@@ -21,6 +31,11 @@ namespace DefaultNamespace
         public void SetCubeAsDraggableTarget()
         {
             SetDraggableTarget(_cubeDraggable);
+        }
+
+        private void DragFinishAction()
+        {
+            _gameManager.OnCubeDropped(this);
         }
     }
 }

@@ -26,5 +26,15 @@ namespace DefaultNamespace
                 _uiController.CubesPalette.AddCube(cube);
             }
         }
+        
+        public void OnCubeDropped(CubeController cubeController)
+        {
+            var cube = _cubeCreator.CreateCube(cubeController);
+            cube.SetDraggableTarget(_uiController.ScrollDraggable);
+            
+            _uiController.CubesPalette.ReplaceCube(cube);
+            
+            Destroy(cubeController.gameObject);
+        }
     }
 }

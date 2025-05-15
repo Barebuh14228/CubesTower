@@ -1,11 +1,8 @@
-using DefaultNamespace.Save;
 using UnityEngine;
-using Zenject;
 
 namespace DefaultNamespace
 {
     //todo objectpool
-    //todo abstract factory ?
     
     public class CubeCreator : MonoBehaviour
     {
@@ -18,6 +15,11 @@ namespace DefaultNamespace
             cube.Setup(cubeSettings.Sprite);
 
             return cube;
+        }
+        
+        public CubeController CreateCube(CubeController cubeController)
+        {
+            return Instantiate(cubeController);
         }
     }
 }

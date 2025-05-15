@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -6,15 +8,22 @@ namespace DefaultNamespace
     {
         [SerializeField] private CubeContainer _cubeContainerPrefab;
 
+        private List<CubeContainer> _containers;
+        
         public void AddCube(CubeController cubeController)
         {
-            //создание кубика отделено от присваивания парента, потому что если присваивать парент при создании у кубика
-            //будет меняться scale
-            
-            var cubeContainer = Instantiate(_cubeContainerPrefab);
+            var cubeContainer = Instantiate(_cubeContainerPrefab, transform);
             
             cubeContainer.transform.SetParent(transform);
             cubeContainer.Setup(cubeController);
+            
+            _containers ??= new List<CubeContainer>();
+            _containers.Add(cubeContainer);
+        }
+
+        public void ReplaceCube(CubeController cubeController)
+        {
+            _containers.First(c => c.WaitForReplace).Setup(cubeController);
         }
     }
 }

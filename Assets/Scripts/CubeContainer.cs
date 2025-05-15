@@ -1,23 +1,26 @@
 using DefaultNamespace;
 using UnityEngine;
-using Zenject;
 
 public class CubeContainer : MonoBehaviour
 {
     [SerializeField] private RectTransform _container;
-    
-    [Inject] private CubeCreator _cubeCreator;
+    [SerializeField] private LayoutComponentsDisabler _layoutComponentsDisabler;
     
     private CubeController _currentCube;
+
+    public bool WaitForReplace { get; private set; }
 
     public void Setup(CubeController cubeController)
     {
         _currentCube = cubeController;
-        _currentCube.transform.SetParent(_container);
+        _currentCube.transform.SetParent(_container, false);
+        _layoutComponentsDisabler.RebuildAndDisable();
+        WaitForReplace = false;
     }
     
     public void OnPressAnimationComplete()
     {
         _currentCube.SetCubeAsDraggableTarget();
+        WaitForReplace = true;
     }
 }
