@@ -1,3 +1,4 @@
+using Cube;
 using UnityEngine;
 
 public class CubeContainer : MonoBehaviour

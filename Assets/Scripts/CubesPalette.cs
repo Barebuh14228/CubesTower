@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cube;
 using UnityEngine;
 
 public class CubesPalette : MonoBehaviour //todo rename
