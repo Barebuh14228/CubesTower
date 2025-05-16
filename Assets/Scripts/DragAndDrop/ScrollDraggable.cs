@@ -7,8 +7,6 @@ namespace DragAndDrop
     [RequireComponent(typeof(ScrollRect))]
     public class ScrollDraggable : CustomDraggable
     {
-        public ScrollRect ScrollRect => _scrollRect;
-        
         private ScrollRect _scrollRect;
         
         private void Awake()

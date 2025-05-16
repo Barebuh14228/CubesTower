@@ -1,63 +1,88 @@
+using System;
+using DefaultNamespace;
 using DragAndDrop;
+using Settings;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 namespace Cube
 {
     public class CubeController : MonoBehaviour
     {
+        public event Action OnDropEvent;
+        
         [SerializeField] private CubeModel _cubeModel;
         [SerializeField] private CubeView _cubeView;
         [SerializeField] private CubeDraggable _cubeDraggable;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
-        [SerializeField] private DropItem _dropItem;
-        [SerializeField] private RectTransform _rectTransform;
         
+        [SerializeField] private UnityEvent _onAppearEvent;
+        [SerializeField] private UnityEvent _onDestroyEvent;
+        
+        [Inject] private GameManager _gameManager;
         [Inject] private UIController _uiController;
         [Inject] private CubeCreator _cubeCreator;
-        
-        public void SetupView()
+
+        public CubeModel Model => _cubeModel;
+
+        private void Start()
         {
-            _cubeView.Setup(_cubeModel.CubeSprite);
-        }
-    
-        public void SetDraggableTarget(CustomDraggable draggableTarget)
-        {
-            _dragEventsProvider.SetTarget(draggableTarget);
+            _cubeDraggable.OnEndDragEvent += Drop;
         }
 
-        public void SetDefaultDraggableTarget()
+        public void Setup(CubeSettings cubeSettings)
         {
-            SetDraggableTarget(_uiController.ScrollDraggable);
+            _cubeModel.Setup(cubeSettings);
+            _cubeView.SetSprite(_cubeModel.CubeSprite);
         }
 
-        public void SetDefaultDraggingParent()
+        public void CreateInSpawner()
         {
-            _dropItem.SetDraggingParent(_uiController.DraggingParent);
+            _dragEventsProvider.SetTarget(_uiController.ScrollDraggable);
         }
         
-        public void OnStartDragging()
+        public void AppearInSpawner()
         {
-            _dropItem.MoveToDraggingParent();
-            
-            //todo если кубик вляется частью башни то нужно оповестить башню
+            _onAppearEvent?.Invoke();
+            CreateInSpawner();
         }
-
-        public void OnFinishDragging()
+        
+        public void ReleaseFromSpawner()
         {
-            var dropped = _uiController.TryDropItem(_dropItem);
-            
-            if (!dropped)
-            {
-                _cubeModel.DestroyCube();
-            }
-            
-            _uiController.SpawnersContainer.RespawnCubes();
+            _dragEventsProvider.SetTarget(_cubeDraggable);
         }
         
         public void ReturnToPool()
         {
-            _cubeCreator.ReturnToPool(_cubeModel);
+            _cubeCreator.ReturnToPool(this);
+        }
+
+        private void Drop()
+        {
+            OnDropEvent?.Invoke();
+            
+            if (_uiController.HoleParent.ContainRect(_cubeModel.RectTransform))
+            {
+                _gameManager.DropCubeInHole(this);
+                
+                return;
+            }
+
+            if (_uiController.TowerParent.ContainRect(_cubeModel.RectTransform))
+            {
+                if (!_gameManager.TryDropCubeOnTower(this))
+                    DestroyCube();
+                
+                return;
+            }
+            
+            DestroyCube();
+        }
+        
+        private void DestroyCube()
+        {
+            _onDestroyEvent?.Invoke();
         }
     }
 }

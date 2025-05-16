@@ -7,18 +7,18 @@ using UnityEngine.Serialization;
     
 public class CubeCreator : MonoBehaviour
 {
-    [SerializeField] private CubeModel _cubePrefab;
+    [SerializeField] private CubeController _cubePrefab;
         
-    public CubeModel CreateCube(CubeSettings cubeSettings)
+    public CubeController CreateCube(CubeSettings cubeSettings)
     {
         var cube = Instantiate(_cubePrefab);
-            
-        cube.SetupModel(cubeSettings.Sprite);
+        
+        cube.Setup(cubeSettings);
 
         return cube;
     }
 
-    public void ReturnToPool(CubeModel cubeController)
+    public void ReturnToPool(CubeController cubeController)
     {
         Destroy(cubeController.gameObject);
     }

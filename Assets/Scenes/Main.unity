@@ -185,7 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towerModel: {fileID: 65334474}
-  _dropZone: {fileID: 65334476}
+  _boundaries: {fileID: 65334476}
+  _rectTransform: {fileID: 65334472}
 --- !u!114 &65334476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c359f69a55ba42368b7edbeae57cf03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 65334472}
   _ellipseScalingStep: 0.01
 --- !u!1 &104783407
 GameObject:
@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6407f65c9cd4683ba7308b30f64e031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerController: {fileID: 65334475}
 --- !u!1 &156865015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,9 +1162,8 @@ MonoBehaviour:
   _scrollDragable: {fileID: 945802869}
   _spawnersContainer: {fileID: 377002670}
   _draggingParent: {fileID: 1631566525}
-  _dropZones:
-  - {fileID: 1185654597}
-  - {fileID: 65334476}
+  _holeParent: {fileID: 156865016}
+  _towerParent: {fileID: 65334472}
 --- !u!4 &1078659204
 Transform:
   m_ObjectHideFlags: 0
@@ -1271,7 +1271,6 @@ GameObject:
   - component: {fileID: 1185654595}
   - component: {fileID: 1185654596}
   - component: {fileID: 1185654594}
-  - component: {fileID: 1185654597}
   m_Layer: 5
   m_Name: Hole Parent
   m_TagString: Untagged
@@ -1351,19 +1350,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &1185654597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1185654592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cfdabfa86b04550ae8438175aa4e1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 1185654593}
 --- !u!1 &1417027982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,7 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624355c8241e4195a6b6a28b0b8a4747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 1681329833088042050, guid: e02dedd9c17834b4db88f733a012df8f, type: 3}
+  _cubePrefab: {fileID: 2443177633378752320, guid: e02dedd9c17834b4db88f733a012df8f, type: 3}
 --- !u!1 &2067908686
 GameObject:
   m_ObjectHideFlags: 0

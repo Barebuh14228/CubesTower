@@ -1,21 +1,18 @@
 using System.Collections.Generic;
-using DragAndDrop;
+using Cube;
 using UnityEngine;
 
 namespace Tower
 {
     public class TowerModel : MonoBehaviour
     {
-        private List<DropItem> _items = new List<DropItem>();
+        private List<CubeModel> _items = new List<CubeModel>();
 
-        public List<DropItem> Items => _items;
+        public List<CubeModel> Items => _items;
         
-        public void AddItem(DropItem item)
+        public void AddItem(CubeModel item)
         {
             _items.Add(item);
-            
-            //todo закидываем анимацией наверх
-            //todo или дропаем вниз
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cube
     {
         [SerializeField] private Image _image;
     
-        public void Setup(Sprite sprite)
+        public void SetSprite(Sprite sprite)
         {
             _image.sprite = sprite;
         }

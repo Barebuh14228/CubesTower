@@ -1,24 +1,29 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Zenject;
 
 namespace DragAndDrop
 {
+    [RequireComponent(typeof(RectTransform))]
     public class CubeDraggable : CustomDraggable
     {
-        [SerializeField] private UnityEvent _dragBeginEvent;
-        [SerializeField] private UnityEvent _dragFinishEvent;
+        public event Action OnEndDragEvent;
+        
+        [Inject] private UIController _uiController;
         
         private RectTransform _rectTransform;
-        
-        private void Awake()
+        private RectTransform _draggingParent;
+
+        private void Start()
         {
             _rectTransform = GetComponent<RectTransform>();
+            _draggingParent = _uiController.DraggingParent;
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
-            _dragBeginEvent?.Invoke();
+            transform.SetParent(_draggingParent,true);
         }
         
         public override void OnDrag(PointerEventData eventData)
@@ -28,7 +33,7 @@ namespace DragAndDrop
 
         public override void OnEndDrag(PointerEventData eventData)
         {
-            _dragFinishEvent?.Invoke();
+            OnEndDragEvent?.Invoke();
         }
     }
 }

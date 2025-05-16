@@ -1,37 +1,19 @@
+using DefaultNamespace;
+using Settings;
 using UnityEngine;
-using UnityEngine.Events;
-using Zenject;
 
 namespace Cube
 {
     public class CubeModel : MonoBehaviour
     {
-        [SerializeField] private UnityEvent _onCreateEvent;
-        [SerializeField] private UnityEvent _onSetupEvent;
-        [SerializeField] private UnityEvent _onReleasedEvent;
-        [SerializeField] private UnityEvent _onDestroyEvent;
+        [SerializeField] private RectTransform _rectTransform;
         
         public Sprite CubeSprite { get; private set; }
+        public RectTransform RectTransform => _rectTransform;
 
-        private void Start()
+        public void Setup(CubeSettings settings)
         {
-            _onCreateEvent?.Invoke();
-        }
-
-        public void SetupModel(Sprite sprite)
-        {
-            CubeSprite = sprite;
-            _onSetupEvent?.Invoke();
-        }
-
-        public void ReleaseFromSpawner()
-        {
-            _onReleasedEvent?.Invoke();
-        }
-    
-        public void DestroyCube()
-        {
-            _onDestroyEvent?.Invoke();
+            CubeSprite = settings.Sprite;
         }
     }
 }

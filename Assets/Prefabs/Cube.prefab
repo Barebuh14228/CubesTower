@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 3053755535394418098}
   - component: {fileID: 7128075085505236063}
   - component: {fileID: 8420937907536589408}
-  - component: {fileID: 3287149556859332080}
-  - component: {fileID: 6975771663007736407}
   - component: {fileID: 1483046697977457111}
+  - component: {fileID: 6975771663007736407}
   - component: {fileID: 924341056408384543}
   - component: {fileID: 2443177633378752320}
   - component: {fileID: 1681329833088042050}
@@ -41,10 +40,10 @@ RectTransform:
   - {fileID: 4394244373856742462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 55, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3053755535394418098
 CanvasRenderer:
@@ -97,31 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _containerSource: 0
---- !u!114 &3287149556859332080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494307043875338543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c54dac3a7c04a9e8c1e086692c5941c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 1103328599578517104}
---- !u!114 &6975771663007736407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494307043875338543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc93f52cec8483ca0e06035639eb534, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1483046697977457111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,36 +108,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1272774cdb9c4ea19d6055d54993f493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragBeginEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: OnStartDragging
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _dragFinishEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: OnFinishDragging
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &6975771663007736407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494307043875338543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc93f52cec8483ca0e06035639eb534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &924341056408384543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,21 +149,7 @@ MonoBehaviour:
   _cubeView: {fileID: 924341056408384543}
   _cubeDraggable: {fileID: 1483046697977457111}
   _dragEventsProvider: {fileID: 6975771663007736407}
-  _dropItem: {fileID: 3287149556859332080}
-  _rectTransform: {fileID: 0}
---- !u!114 &1681329833088042050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494307043875338543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c7311050c03467b9222631b28af0035, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onCreateEvent:
+  _onAppearEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3953975482173831053}
@@ -220,72 +162,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Appear
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: SetDefaultDraggableTarget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Appear
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: SetDefaultDraggingParent
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Appear
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7276949616377623720}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Appear
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onSetupEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: SetupView
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onReleasedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: SetDraggableTarget
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1483046697977457111}
-          m_ObjectArgumentAssemblyTypeName: DragAndDrop.CustomDraggable, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   _onDestroyEvent:
@@ -312,7 +188,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Destroy
+          m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 3898436420851730012}
@@ -324,9 +200,22 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Destroy
-          m_BoolArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1681329833088042050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494307043875338543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7311050c03467b9222631b28af0035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 1103328599578517104}
 --- !u!95 &3953975482173831053
 Animator:
   serializedVersion: 5
@@ -366,7 +255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4394244373856742462
 RectTransform:
   m_ObjectHideFlags: 0
