@@ -131,6 +131,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65334472}
+  - component: {fileID: 65334476}
+  - component: {fileID: 65334474}
+  - component: {fileID: 65334475}
   m_Layer: 5
   m_Name: Drop Parent
   m_TagString: Untagged
@@ -157,6 +160,46 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 10}
   m_SizeDelta: {x: -40, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &65334474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65334471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1abad6aa2f42e7ab2c6b908cd6f9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &65334475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65334471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff57a3a14a5417c9389cd032dd7e3aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towerModel: {fileID: 65334474}
+  _dropZone: {fileID: 65334476}
+--- !u!114 &65334476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65334471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c359f69a55ba42368b7edbeae57cf03f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 65334472}
+  _ellipseScalingStep: 0.01
 --- !u!1 &104783407
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +601,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717a4f957d2e4ae39e46e517ca98ebc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _draggableTarget: {fileID: 945802869}
   _spawnerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
 --- !u!1 &488999296
 GameObject:
@@ -911,7 +953,7 @@ RectTransform:
   - {fileID: 488999297}
   - {fileID: 1631566525}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.461}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1116,12 +1158,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddffd067e80460c8581fcbb6cf65379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCanvas: {fileID: 788905961}
   _scrollDragable: {fileID: 945802869}
   _spawnersContainer: {fileID: 377002670}
   _draggingParent: {fileID: 1631566525}
-  _holeParent: {fileID: 1185654593}
-  _dropParent: {fileID: 65334472}
+  _dropZones:
+  - {fileID: 1185654597}
+  - {fileID: 65334476}
 --- !u!4 &1078659204
 Transform:
   m_ObjectHideFlags: 0
@@ -1229,6 +1271,7 @@ GameObject:
   - component: {fileID: 1185654595}
   - component: {fileID: 1185654596}
   - component: {fileID: 1185654594}
+  - component: {fileID: 1185654597}
   m_Layer: 5
   m_Name: Hole Parent
   m_TagString: Untagged
@@ -1308,6 +1351,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &1185654597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185654592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfdabfa86b04550ae8438175aa4e1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 1185654593}
 --- !u!1 &1417027982
 GameObject:
   m_ObjectHideFlags: 0
