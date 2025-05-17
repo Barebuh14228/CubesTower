@@ -8,7 +8,7 @@ namespace DragAndDrop
         [SerializeField] private Transform _dropPoint;
         [SerializeField] private Transform _dropMask;
         
-        public override void Drop(DraggingCube item)
+        public override void NotifyOnDrop(DraggingCube item)
         {
             var cubeController = item.Item;
             

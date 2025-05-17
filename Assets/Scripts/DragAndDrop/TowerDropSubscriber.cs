@@ -7,7 +7,7 @@ namespace DragAndDrop
     {
         [SerializeField] private TowerController _towerController;
         
-        public override void Drop(DraggingCube item)
+        public override void NotifyOnDrop(DraggingCube item)
         {
             _towerController.TryDropCube(item.Item);
         }

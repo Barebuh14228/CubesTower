@@ -16,7 +16,7 @@ namespace DragAndDrop
 
         private void NotifySubscriber(TDraggingItem draggingItem)
         {
-            _subscriber.Drop(draggingItem);
+            _subscriber.NotifyOnDrop(draggingItem);
         }
     }
 }
