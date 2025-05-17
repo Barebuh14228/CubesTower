@@ -28,7 +28,9 @@ namespace Tower
         {
             if (!_towerModel.ContainItem(cubeController.Model))
                 return;
-
+            
+            //todo учесть что может остаться 0
+            
             var worldRect = cubeController.Model.RectTransform.GetWorldRect();
             var startDropping = false;
             
