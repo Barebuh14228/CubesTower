@@ -1,3 +1,4 @@
+using Cube;
 using Settings;
 using Tower;
 using UnityEngine;
@@ -24,5 +25,10 @@ public class GameManager : MonoBehaviour
         {
             _uiController.SpawnersContainer.CreateSpawner(settings);
         }
+    }
+
+    public void NotifyCubeDragged(CubeController cubeController)
+    {
+        _towerController.OnCubeDragged(cubeController);
     }
 }

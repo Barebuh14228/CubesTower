@@ -14,9 +14,4 @@ public class UIController : MonoBehaviour //todo naming
     
     public ScrollDragSubscriber ScrollDragSubscriber => _scrollDragable;
     public SpawnersContainer SpawnersContainer => _spawnersContainer;
-    public RectTransform DraggingParent => _draggingParent;
-    public RectTransform HoleParent => _holeParent;
-    public GameObject HoleMask => _holeMask;
-    public GameObject HoleBottomPoint => _holeBottomPoint;
-    public RectTransform TowerParent => _towerParent;
 }

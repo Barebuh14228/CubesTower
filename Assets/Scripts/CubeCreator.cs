@@ -1,11 +1,10 @@
 using Cube;
 using Settings;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 //todo objectpool
     
-public class CubeCreator : MonoBehaviour
+public class CubeCreator : MonoBehaviour //todo naming
 {
     [SerializeField] private CubeController _cubePrefab;
         

@@ -60,6 +60,7 @@ namespace Cube
         public void Drag()
         {
             _draggingController.StartDragging(_draggingCube);
+            _gameManager.NotifyCubeDragged(this);
         }
         
         public void Drop()

@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace DragAndDrop
 {
-    public class DraggingController : MonoBehaviour //todo DraggingController<T>
+    public class DraggingController : MonoBehaviour
     {
         [SerializeField] private Transform _draggingParent;
-        [SerializeField] private DropZone<DraggingCube>[] _dropZones;
+        [SerializeField] private DropZone<DraggingCube>[] _dropZones; //todo fix
 
         public void StartDragging(DraggingCube draggingCube)
         {

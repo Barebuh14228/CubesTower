@@ -25,17 +25,17 @@ namespace Tower
             _worldRect = new (() => _rectTransform.GetWorldRect());
         }
 
-        public void NotifyCubeDragged(CubeController cubeController)
+        public void OnCubeDragged(CubeController cubeController)
         {
             if (!_towerModel.ContainItem(cubeController.Model))
                 return;
-            
-            //todo учесть что может остаться 0
             
             var worldRect = cubeController.Model.RectTransform.GetWorldRect();
             var startDropping = false;
             
             var sequence = DOTween.Sequence();
+            
+            //todo check centers
             
             foreach (var cubeModel in _towerModel.Items)
             {
@@ -66,7 +66,7 @@ namespace Tower
             
             if (!_rectTransform.ContainRect(dropRect))
             {
-                //todo destroy
+                cubeController.DestroyCube();
                 return;
             }
                     
