@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65334472}
+  - component: {fileID: 65334477}
   - component: {fileID: 65334476}
   - component: {fileID: 65334474}
   - component: {fileID: 65334475}
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towerModel: {fileID: 65334474}
-  _boundaries: {fileID: 65334476}
+  _dropZone: {fileID: 65334477}
   _rectTransform: {fileID: 65334472}
 --- !u!114 &65334476
 MonoBehaviour:
@@ -196,9 +197,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 65334471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c359f69a55ba42368b7edbeae57cf03f, type: 3}
+  m_Script: {fileID: 11500000, guid: 94058f6ba083413d9415e3141239f3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerController: {fileID: 65334475}
+--- !u!114 &65334477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65334471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b8847e61d943e4ba886e13b407f674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _subscriber: {fileID: 65334476}
+  _rectTransform: {fileID: 65334472}
   _ellipseScalingStep: 0.2
 --- !u!1 &104783407
 GameObject:
@@ -421,6 +437,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156865015}
   m_CullTransparentMesh: 1
+--- !u!1 &244817367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244817369}
+  - component: {fileID: 244817368}
+  m_Layer: 0
+  m_Name: Dragging Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &244817368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244817367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b84ba309d884b03abe3c1dbb2753b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _draggingParent: {fileID: 1631566525}
+  _dropZones:
+  - {fileID: 1185654597}
+  - {fileID: 65334477}
+--- !u!4 &244817369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244817367}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1470632775}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &313027768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,7 +1331,7 @@ GameObject:
   - component: {fileID: 1078659204}
   - component: {fileID: 1078659203}
   m_Layer: 0
-  m_Name: UIController
+  m_Name: UI Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1398,6 +1462,8 @@ GameObject:
   - component: {fileID: 1185654593}
   - component: {fileID: 1185654595}
   - component: {fileID: 1185654594}
+  - component: {fileID: 1185654597}
+  - component: {fileID: 1185654596}
   m_Layer: 5
   m_Name: Hole Parent
   m_TagString: Untagged
@@ -1464,6 +1530,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185654592}
   m_CullTransparentMesh: 1
+--- !u!114 &1185654596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185654592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc452941a24f40f49837d93fe3aea8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropPoint: {fileID: 313027769}
+  _dropMask: {fileID: 450613559}
+--- !u!114 &1185654597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185654592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9ae8a2363f479daceb8832ace1056f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _subscriber: {fileID: 1185654596}
+  _rectTransform: {fileID: 1185654593}
 --- !u!1 &1417027982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1745,7 @@ MonoBehaviour:
   _cubeCreator: {fileID: 1780871544}
   _uiController: {fileID: 1078659203}
   _gameManager: {fileID: 123243860}
+  _draggingController: {fileID: 244817368}
 --- !u!4 &1470632775
 Transform:
   m_ObjectHideFlags: 0
@@ -1667,6 +1762,7 @@ Transform:
   - {fileID: 1078659204}
   - {fileID: 123243859}
   - {fileID: 1780871543}
+  - {fileID: 244817369}
   m_Father: {fileID: 1417027984}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1608507164

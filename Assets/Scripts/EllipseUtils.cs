@@ -7,6 +7,9 @@ public static class EllipseUtils
     //Метод, который я добавил сам. Увеличивает эллипс до тех пор, пока он не будет включать в себя все точки
     public static EllipseParams CalculateBoundingEllipse(Vector3[] points, float scalingFactor)
     {
+        if (points == null || points.Length == 0)
+            throw new System.ArgumentException("Points array cannot be null or empty");
+        
         var pointsList = points.ToList();
         var approximateParameters = CalculateApproximateParameters(points);
         
@@ -27,9 +30,6 @@ public static class EllipseUtils
 
     private static EllipseParams CalculateApproximateParameters(Vector3[] points)
     {
-        if (points == null || points.Length == 0)
-            throw new System.ArgumentException("Points array cannot be null or empty");
-
         // Игнорируем Z-координату и конвертируем в Vector2
         Vector2[] points2D = points.Select(p => new Vector2(p.x, p.y)).ToArray();
 
@@ -147,5 +147,10 @@ public static class EllipseUtils
         public float MajorAxis; // Длина главной оси
         public float MinorAxis; // Длина второй оси
         public float RotationAngle; // Угол поворота в градусах
+
+        public bool IsExist()
+        {
+            return MajorAxis != 0 && MinorAxis != 0;
+        }
     }
 }

@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace DragAndDrop
+namespace DragEventsUtils
 {
     [RequireComponent(typeof(ScrollRect))]
-    public class ScrollDraggable : CustomDraggable
+    public class ScrollDragSubscriber : DragEventsSubscriber
     {
         private ScrollRect _scrollRect;
         

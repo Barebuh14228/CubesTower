@@ -1,22 +1,36 @@
 using System;
 using System.Linq;
-using DefaultNamespace;
 using UnityEngine;
 
-namespace DragEventsUtils
+namespace DragAndDrop
 {
-    public class EllipseBoundaries : MonoBehaviour
+    public class EllipseDropZone : DropZone<DraggingCube>
     {
+        [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private float _ellipseScalingStep = 0.01f;
         
         private EllipseUtils.EllipseParams _boundingEllipse;
         
+        public override bool CanDropItem(DraggingCube draggingItem)
+        {
+            if (!_boundingEllipse.IsExist())
+                return _rectTransform.ContainRect(draggingItem.GetWorldRect());
+            
+            return draggingItem.GetWorldRect().GetCorners().Any(IsPointInBoundaries);
+        }
+        
         public void RecalculateBoundaries(Vector3[] points)
         {
+            if (points.Length == 0)
+            {
+                _boundingEllipse = default;
+                return;
+            }
+            
             _boundingEllipse = EllipseUtils.CalculateBoundingEllipse(points, _ellipseScalingStep);
         }
         
-        public bool IsPointInBoundaries(Vector3 point)
+        private bool IsPointInBoundaries(Vector3 point)
         {
             return _boundingEllipse.ContainsPoint(point);
         }

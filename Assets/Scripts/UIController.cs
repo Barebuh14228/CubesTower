@@ -1,9 +1,9 @@
-using DragAndDrop;
+using DragEventsUtils;
 using UnityEngine;
 
 public class UIController : MonoBehaviour //todo naming
 {
-    [SerializeField] private ScrollDraggable _scrollDragable; 
+    [SerializeField] private ScrollDragSubscriber _scrollDragable; 
     [SerializeField] private SpawnersContainer _spawnersContainer;
     [SerializeField] private RectTransform _draggingParent;
     [SerializeField] private RectTransform _holeParent;
@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour //todo naming
     [SerializeField] private RectTransform _towerParent;
     
     
-    public ScrollDraggable ScrollDraggable => _scrollDragable;
+    public ScrollDragSubscriber ScrollDragSubscriber => _scrollDragable;
     public SpawnersContainer SpawnersContainer => _spawnersContainer;
     public RectTransform DraggingParent => _draggingParent;
     public RectTransform HoleParent => _holeParent;

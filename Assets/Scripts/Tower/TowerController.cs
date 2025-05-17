@@ -3,6 +3,7 @@ using System.Linq;
 using Cube;
 using DG.Tweening;
 using DragAndDrop;
+using DragEventsUtils;
 using ModestTree;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,7 +13,7 @@ namespace Tower
     public class TowerController : MonoBehaviour
     {
         [SerializeField] private TowerModel _towerModel;
-        [SerializeField] private EllipseBoundaries _boundaries;
+        [SerializeField] private EllipseDropZone _dropZone;
         [SerializeField] private RectTransform _rectTransform;
 
         private Lazy<Rect> _worldRect;
@@ -58,17 +59,16 @@ namespace Tower
                 .Play();
         }
         
-        public bool TryDropCube(CubeController cubeController)
+        public void TryDropCube(CubeController cubeController)
         {
             var cubeWorldRect = cubeController.Model.RectTransform.GetWorldRect();
             var dropRect = CalculateDropRect(cubeWorldRect);
-            var isTowerExists = !_towerModel.Items.IsEmpty();
-
-            if (isTowerExists && cubeWorldRect.GetCorners().All(c => !_boundaries.IsPointInBoundaries(c)))
-                return false;
             
             if (!_rectTransform.ContainRect(dropRect))
-                return false;
+            {
+                //todo destroy
+                return;
+            }
                     
             _towerModel.AddItem(cubeController.Model);
                 
@@ -85,13 +85,11 @@ namespace Tower
 
             seq.Append(cubeController.transform.DOPath(points, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
             seq.OnComplete(RecalculateBoundaries).Play();
-            
-            return true;
         }
 
         private void RecalculateBoundaries()
         {
-            _boundaries.RecalculateBoundaries(_towerModel.Items.SelectMany(i => i.RectTransform.GetWorldCornersArray()).ToArray());
+            _dropZone.RecalculateBoundaries(_towerModel.Items.SelectMany(i => i.RectTransform.GetWorldCornersArray()).ToArray());
         }
         
         private Rect CalculateDropRect(Rect worldRect)

@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DragAndDrop
+namespace DragEventsUtils
 {
     public class DragEventsProvider : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        private CustomDraggable _target;
+        private DragEventsSubscriber _target;
 
-        public void SetTarget(CustomDraggable draggable)
+        public void SetTarget(DragEventsSubscriber target)
         {
-            _target = draggable;
+            _target = target;
         }
         
         public void OnBeginDrag(PointerEventData eventData)

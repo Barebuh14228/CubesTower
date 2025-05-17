@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DragAndDrop
+namespace DragEventsUtils
 {
-    public abstract class CustomDraggable : MonoBehaviour
+    public abstract class DragEventsSubscriber : MonoBehaviour
     {
         public abstract void OnBeginDrag(PointerEventData eventData);
         public abstract void OnDrag(PointerEventData eventData);

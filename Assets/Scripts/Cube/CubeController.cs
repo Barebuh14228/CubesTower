@@ -1,21 +1,24 @@
 using System;
 using DefaultNamespace;
 using DragAndDrop;
+using DragEventsUtils;
 using Settings;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Cube
 {
-    public class CubeController : MonoBehaviour
+    public class CubeController : MonoBehaviour //todo fix superclass
     {
         public event Action OnDropEvent;
         
         [SerializeField] private CubeModel _cubeModel;
         [SerializeField] private CubeView _cubeView;
-        [SerializeField] private CubeDraggable _cubeDraggable;
+        [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
+        [SerializeField] private DraggingCube _draggingCube;
         
         [SerializeField] private UnityEvent _onAppearEvent;
         [SerializeField] private UnityEvent _onDestroyEvent;
@@ -23,14 +26,9 @@ namespace Cube
         [Inject] private GameManager _gameManager;
         [Inject] private UIController _uiController;
         [Inject] private CubeCreator _cubeCreator;
+        [Inject] private DraggingController _draggingController;
 
         public CubeModel Model => _cubeModel;
-
-        private void Start()
-        {
-            _cubeDraggable.OnBeginDragEvent += Drag;
-            _cubeDraggable.OnEndDragEvent += Drop;
-        }
 
         public void Setup(CubeSettings cubeSettings)
         {
@@ -40,7 +38,7 @@ namespace Cube
 
         public void CreateInSpawner()
         {
-            _dragEventsProvider.SetTarget(_uiController.ScrollDraggable);
+            _dragEventsProvider.SetTarget(_uiController.ScrollDragSubscriber);
         }
         
         public void AppearInSpawner()
@@ -51,7 +49,7 @@ namespace Cube
         
         public void ReleaseFromSpawner()
         {
-            _dragEventsProvider.SetTarget(_cubeDraggable);
+            _dragEventsProvider.SetTarget(_cubeDragSubscriber);
         }
         
         public void ReturnToPool()
@@ -59,34 +57,19 @@ namespace Cube
             _cubeCreator.ReturnToPool(this);
         }
 
-        private void Drag()
+        public void Drag()
         {
-            _gameManager.NotifyCubeDragged(this);
+            _draggingController.StartDragging(_draggingCube);
         }
         
-        private void Drop()
+        public void Drop()
         {
             OnDropEvent?.Invoke();
             
-            if (_uiController.HoleParent.ContainRect(_cubeModel.RectTransform))
-            {
-                _gameManager.DropCubeInHole(this);
-                
-                return;
-            }
-
-            if (_uiController.TowerParent.ContainRect(_cubeModel.RectTransform))
-            {
-                if (!_gameManager.TryDropCubeOnTower(this))
-                    DestroyCube();
-                
-                return;
-            }
-            
-            DestroyCube();
+            _draggingController.TryDropItem(_draggingCube);
         }
         
-        private void DestroyCube()
+        public void DestroyCube()
         {
             _onDestroyEvent?.Invoke();
         }
