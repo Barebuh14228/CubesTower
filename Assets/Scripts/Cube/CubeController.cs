@@ -28,6 +28,7 @@ namespace Cube
 
         private void Start()
         {
+            _cubeDraggable.OnBeginDragEvent += Drag;
             _cubeDraggable.OnEndDragEvent += Drop;
         }
 
@@ -58,6 +59,11 @@ namespace Cube
             _cubeCreator.ReturnToPool(this);
         }
 
+        private void Drag()
+        {
+            _gameManager.NotifyCubeDragged(this);
+        }
+        
         private void Drop()
         {
             OnDropEvent?.Invoke();

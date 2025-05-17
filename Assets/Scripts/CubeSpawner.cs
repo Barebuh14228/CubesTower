@@ -32,11 +32,11 @@ namespace DefaultNamespace
         {
             _cubeController.ReleaseFromSpawner();
             _cubeController.OnDropEvent += RespawnCube;
-            _cubeController = null;
         }
 
         private void RespawnCube()
         {
+            _cubeController.OnDropEvent -= RespawnCube;
             SpawnCube();
             _cubeController.AppearInSpawner();
         }

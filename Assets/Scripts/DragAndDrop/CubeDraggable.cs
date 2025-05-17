@@ -8,6 +8,7 @@ namespace DragAndDrop
     [RequireComponent(typeof(RectTransform))]
     public class CubeDraggable : CustomDraggable
     {
+        public event Action OnBeginDragEvent;
         public event Action OnEndDragEvent;
         
         [Inject] private UIController _uiController;
@@ -24,6 +25,7 @@ namespace DragAndDrop
         public override void OnBeginDrag(PointerEventData eventData)
         {
             transform.SetParent(_draggingParent,true);
+            OnBeginDragEvent?.Invoke();
         }
         
         public override void OnDrag(PointerEventData eventData)

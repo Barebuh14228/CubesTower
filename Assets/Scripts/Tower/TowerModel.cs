@@ -14,5 +14,15 @@ namespace Tower
         {
             _items.Add(item);
         }
+
+        public bool ContainItem(CubeModel item)
+        {
+            return _items.Contains(item);
+        }
+
+        public void RemoveItem(CubeModel item)
+        {
+            _items.Remove(item);
+        }
     }
 }
