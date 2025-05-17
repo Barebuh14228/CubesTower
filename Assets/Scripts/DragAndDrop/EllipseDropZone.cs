@@ -11,7 +11,7 @@ namespace DragAndDrop
         
         private EllipseUtils.EllipseParams _boundingEllipse;
         
-        public override bool CanDropItem(DraggingCube draggingItem)
+        protected override bool CanDropItem(DraggingCube draggingItem)
         {
             if (!_boundingEllipse.IsExist())
                 return _rectTransform.ContainRect(draggingItem.GetWorldRect());

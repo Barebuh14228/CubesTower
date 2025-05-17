@@ -5,7 +5,7 @@ namespace DragAndDrop
     public class DraggingController : MonoBehaviour
     {
         [SerializeField] private Transform _draggingParent;
-        [SerializeField] private DropZone<DraggingCube>[] _dropZones; //todo fix
+        [SerializeField] private DropZone[] _dropZones;
 
         public void StartDragging(DraggingCube draggingCube)
         {
@@ -16,9 +16,9 @@ namespace DragAndDrop
         {
             foreach (var dropZone in _dropZones)
             {
-                if (dropZone.CanDropItem(draggingCube))
+                if (dropZone.CanDrop(draggingCube))
                 {
-                    dropZone.DropItem(draggingCube);
+                    dropZone.Drop(draggingCube);
                     return;
                 }
             }

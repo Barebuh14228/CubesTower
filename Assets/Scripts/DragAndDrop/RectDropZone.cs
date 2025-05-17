@@ -6,7 +6,7 @@ namespace DragAndDrop
     {
         [SerializeField] private RectTransform _rectTransform;
 
-        public override bool CanDropItem(DraggingCube draggingItem)
+        protected override bool CanDropItem(DraggingCube draggingItem)
         {
             return _rectTransform.ContainRect(draggingItem.GetWorldRect());
         }
