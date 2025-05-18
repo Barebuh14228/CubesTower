@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [Inject] private CubeCreator _cubeCreator;
     [Inject] private CubePresets _cubePresets;
     [Inject] private UIController _uiController;
-    
+
     private void Start()
     {
         CreateSpawners();

@@ -24,5 +24,7 @@ namespace Cube
 
             return false;
         }
+        
+        //todo hash code
     }
 }

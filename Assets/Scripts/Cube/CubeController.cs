@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using DG.Tweening;
 using DragAndDrop;
 using DragEventsUtils;
 using Settings;
@@ -30,13 +31,15 @@ namespace Cube
 
         public CubeModel Model => _cubeModel;
 
+        public bool PreDraggingState { get; private set; }
+
         public void Setup(CubeSettings cubeSettings)
         {
             _cubeModel.Setup(cubeSettings);
             _cubeView.SetSprite(_cubeModel.CubeSprite);
         }
 
-        public void CreateInSpawner()
+        public void SetScrollAsDraggableTarget()
         {
             _dragEventsProvider.SetTarget(_uiController.ScrollDragSubscriber);
         }
@@ -44,12 +47,13 @@ namespace Cube
         public void AppearInSpawner()
         {
             _onAppearEvent?.Invoke();
-            CreateInSpawner();
+            SetScrollAsDraggableTarget();
         }
-        
-        public void ReleaseFromSpawner()
+
+        public void WarmDragging()
         {
             _dragEventsProvider.SetTarget(_cubeDragSubscriber);
+            PreDraggingState = true;
         }
         
         public void ReturnToPool()
@@ -61,6 +65,7 @@ namespace Cube
         {
             _draggingController.StartDragging(_draggingCube);
             _gameManager.NotifyCubeDragged(this);
+            PreDraggingState = false;
         }
         
         public void Drop()

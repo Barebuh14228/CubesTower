@@ -3,11 +3,6 @@ using UnityEngine;
 
 public static class RectTransformExtensions
 {
-    public static bool ContainRect(this RectTransform target, RectTransform rectTransform)
-    {
-        return rectTransform.GetWorldCornersArray().All(p => RectTransformUtility.RectangleContainsScreenPoint(target, p));
-    }
-    
     public static bool ContainRect(this RectTransform target, Rect worldRect)
     {
         return worldRect.GetCorners().All(p => RectTransformUtility.RectangleContainsScreenPoint(target, p));

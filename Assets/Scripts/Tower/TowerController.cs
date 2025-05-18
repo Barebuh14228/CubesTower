@@ -1,7 +1,12 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Cube;
+using DefaultNamespace;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using DragAndDrop;
 using DragEventsUtils;
 using ModestTree;
@@ -16,7 +21,7 @@ namespace Tower
         [SerializeField] private EllipseDropZone _dropZone;
         [SerializeField] private RectTransform _rectTransform;
 
-        private Lazy<Rect> _worldRect;
+        private Lazy<Rect> _worldRect; //todo remove
         
         private void Start()
         {
@@ -25,9 +30,16 @@ namespace Tower
 
         public bool CanDropCube(CubeController cubeController, out Rect finalPositionRect)
         {
-            var cubeWorldRect = cubeController.Model.RectTransform.GetWorldRect();
+            finalPositionRect = default;
             
-            finalPositionRect = CalculateDropRect(cubeWorldRect);
+            //todo cant drop while moving cubes down
+            
+            var cubeRect = cubeController.Model.RectTransform.GetWorldRect();
+            var cubeWidth = cubeRect.width;
+            var offsetX = Random.Range(0, cubeWidth) - cubeWidth / 2;
+            
+            finalPositionRect = cubeRect;
+            finalPositionRect.position = GetDropPosition(finalPositionRect) + Vector2.right * offsetX;
             
             return _rectTransform.ContainRect(finalPositionRect);
         }
@@ -36,73 +48,51 @@ namespace Tower
         {
             var cubeRectTransform = cubeController.Model.RectTransform;
             cubeRectTransform.SetParent(_rectTransform,true);
-            _towerModel.AddItem(cubeController.Model);
+            _towerModel.AddCube(cubeController.Model);
             RecalculateBoundaries();
         }
         
         public void OnCubeDragged(CubeController cubeController)
         {
-            if (!_towerModel.ContainItem(cubeController.Model))
+            if (!_towerModel.ContainCube(cubeController.Model))
                 return;
-            
+
+            var cubesToMoveDown = _towerModel.RemoveCube(cubeController.Model);
             var worldRect = cubeController.Model.RectTransform.GetWorldRect();
-            var startDropping = false;
+
+            cubesToMoveDown.Reverse();
             
             var sequence = DOTween.Sequence();
             
-            //todo check centers
-            
-            foreach (var cubeModel in _towerModel.Items)
+            foreach (var cube in cubesToMoveDown)
             {
-                if (cubeModel.Equals(cubeController.Model))
-                {
-                    startDropping = true;
-                    continue;
-                }
-                
-                if (!startDropping)
-                    continue;
-
-                sequence.Append(cubeModel.RectTransform.DOMoveY(cubeModel.RectTransform.position.y - worldRect.height, .2f));
+                sequence.Append(cube.RectTransform.DOMoveY(cube.RectTransform.position.y - worldRect.height, .2f));
                 sequence.AppendInterval(0.05f);
             }
             
-            _towerModel.RemoveItem(cubeController.Model);
+            cubesToMoveDown.ForEach(_towerModel.AddCube);
             
-            sequence
-                .OnComplete(RecalculateBoundaries)
-                .Play();
+            sequence.OnComplete(RecalculateBoundaries);
         }
-
+        
         private void RecalculateBoundaries()
         {
-            _dropZone.RecalculateBoundaries(_towerModel.Items.SelectMany(i => i.RectTransform.GetWorldCornersArray()).ToArray());
+            _dropZone.RecalculateBoundaries(_towerModel.GetCubesCorners());
         }
-        
-        private Rect CalculateDropRect(Rect worldRect)
+
+        private Vector2 GetDropPosition(Rect cubeRect)
         {
-            var offset = CalculateDropOffset(worldRect);
-            worldRect.position += offset;
+            var towerCenter = !_towerModel.HaveCubes()
+                ? cubeRect.center.x
+                : _towerModel.TopCubeRect.center.x;
             
-            return worldRect;
-        }
-        
-        private Vector2 CalculateDropOffset(Rect worldRect)
-        {
-            var lowCenter = worldRect.center - new Vector2(0, worldRect.height / 2);
-            var towerHeight = _towerModel.Items.IsEmpty()
+            var minY = !_towerModel.HaveCubes()
                 ? _worldRect.Value.min.y
-                : _towerModel.Items.Last().RectTransform.GetWorldRect().max.y;
+                : _towerModel.TopCubeRect.max.y;
 
-            var towerCenter = _towerModel.Items.IsEmpty()
-                ? worldRect.center.x
-                : _towerModel.Items.Last().RectTransform.GetWorldRect().center.x;
-
-            var centerOffset = _towerModel.Items.IsEmpty() 
-                ? 0 
-                : Random.Range(0, worldRect.width) - worldRect.width / 2;
-
-            return new Vector2(towerCenter + centerOffset, towerHeight) - lowCenter;
+            var minX = towerCenter - cubeRect.width / 2;
+            
+            return new Vector2(minX, minY);
         }
     }
 }
