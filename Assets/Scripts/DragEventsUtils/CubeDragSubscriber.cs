@@ -10,7 +10,7 @@ namespace DragEventsUtils
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private UnityEvent OnBeginDragEvent;
         [SerializeField] private UnityEvent OnEndDragEvent;
-
+        
         public override void OnBeginDrag(PointerEventData eventData)
         {
             OnBeginDragEvent?.Invoke();

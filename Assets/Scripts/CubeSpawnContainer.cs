@@ -1,19 +1,17 @@
 using System;
 using Cube;
 using DG.Tweening;
+using DragEventsUtils;
 using Settings;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Zenject;
 
-public class CubeSpawnContainer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class CubeSpawnContainer : MonoBehaviour
 {
     [SerializeField] private LayoutComponentsDisabler _layoutComponentsDisabler;
-
-    [Inject] private CubeCreator _cubeCreator;
-
+    
     private CubeSettings _settings;
     private CubeController _cubeController;
+    private DragEventsSubscriber _dragTarget;
 
     // используется ленивая инициализация чтобы анимация не проигрывалась на старте
     // в качестве альтернативы мог бы выставить флаг defaultAutoPlay у класса DOTween в false,
@@ -31,51 +29,67 @@ public class CubeSpawnContainer : MonoBehaviour, IPointerDownHandler, IPointerUp
         );
     }
 
-    public void Setup(CubeSettings settings)
+    public void SetSettings(CubeSettings settings)
     {
         _settings = settings;
-        SpawnCube();
     }
 
-    private void SpawnCube()
+    public void SetDragTarget(DragEventsSubscriber dragTarget)
     {
-        _cubeController = _cubeCreator.CreateCube(_settings);
-        _cubeController.transform.SetParent(transform, false);
-        _cubeController.SetScrollAsDraggableTarget();
-        _layoutComponentsDisabler.RebuildAndDisable();
+        _dragTarget = dragTarget;
     }
 
+    public CubeSettings GetSettings()
+    {
+        return _settings;
+    }
+
+    public bool IsEmpty()
+    {
+        return _cubeController == null;
+    }
+    
+    public void SetCube(CubeController cubeController, bool rebuildLayout = true)
+    {
+        _cubeController = cubeController;
+        _cubeController.transform.SetParent(transform, false);
+        _cubeController.OverrideDragTarget(_dragTarget);
+        
+        if (rebuildLayout)
+        {
+            _layoutComponentsDisabler.RebuildAndDisable();
+        }
+    }
+    
     private void ReleaseCube()
     {
-        _cubeController.WarmDragging();
-        _cubeController.OnDropEvent += RespawnCube;
+        _cubeController.ResetDragTarget();
     }
-
-    // на случай когда мы нажали на кнопку до конца, но при этом не стали двигать кубик
-    private void TryCancelDragging()
+    
+    public void PlayAppearAnimation()
     {
-        if (!_cubeController.PreDraggingState)
-            return;
-
-        _cubeController.SetScrollAsDraggableTarget();
-        _cubeController.OnDropEvent -= RespawnCube;
+        transform.DOPunchScale(Vector3.one * 0.2f, 0.5f, 3);
     }
 
-    private void RespawnCube()
+    public void CheckCubeDraggingState()
     {
-        _cubeController.OnDropEvent -= RespawnCube;
-        SpawnCube();
-        _cubeController.AppearInSpawner();
+        if (!_cubeController.IsDragging)
+        {
+            _cubeController.OverrideDragTarget(_dragTarget);
+        }
+        else
+        {
+            _cubeController = null;
+        }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void PlayPushAnimForward()
     {
         _lazySequence.Value.PlayForward();
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void PlayPushAnimBackward()
     {
         _lazySequence.Value.PlayBackwards();
-        TryCancelDragging();
     }
 }
