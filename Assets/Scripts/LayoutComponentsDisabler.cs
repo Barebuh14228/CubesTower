@@ -39,9 +39,9 @@ public class LayoutComponentsDisabler : MonoBehaviour
 
     private IEnumerator DisableBehaviours()
     {
-        var framesCount = 0;
         var rect = _rectTransform.rect;
-            
+        
+        // ждем когда изменения начнутся
         while (_waitForRebuild)
         {
             if (!rect.Equals(_rectTransform.rect))
@@ -49,15 +49,13 @@ public class LayoutComponentsDisabler : MonoBehaviour
                 _waitForRebuild = false;
                 rect = _rectTransform.rect;
             }
-            framesCount++;
             yield return new WaitForEndOfFrame();
         }
             
-        //ждем когда изменения прекратятся (в случае с LayoutGroup могут происходить рекурсивные изменения)
+        // ждем когда изменения прекратятся (в случае с LayoutGroup могут происходить рекурсивные изменения)
         while (!rect.Equals(_rectTransform.rect))
         {
             rect = _rectTransform.rect;
-            framesCount++;
             yield return new WaitForEndOfFrame();
         }
 

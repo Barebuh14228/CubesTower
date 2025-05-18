@@ -16,7 +16,7 @@ namespace DragAndDrop
         
         public override void NotifyOnDrop(DraggingCube item)
         {
-            var cubeController = item.Item;
+            var cubeController = item.Value;
             
             if (_sequence != null && _sequence.IsActive())
             {
@@ -26,7 +26,7 @@ namespace DragAndDrop
             
             var cubeWorldRect = item.GetWorldRect();
             
-            if (!_towerController.CanDropCube(item.Item, out var finalPositionRect))
+            if (!_towerController.CanDropCube(item.Value, out var finalPositionRect))
             {
                 cubeController.DestroyCube();
                 return;

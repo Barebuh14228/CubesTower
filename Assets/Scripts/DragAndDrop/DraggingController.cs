@@ -7,23 +7,23 @@ namespace DragAndDrop
         [SerializeField] private Transform _draggingParent;
         [SerializeField] private DropZone[] _dropZones;
 
-        public void StartDragging(DraggingCube draggingCube)
+        public void StartDragging(DraggingItem draggingItem)
         {
-            draggingCube.transform.SetParent(_draggingParent);
+            draggingItem.transform.SetParent(_draggingParent);
         }
         
-        public void TryDropItem(DraggingCube draggingCube)
+        public bool TryDropItem(DraggingCube draggingCube)
         {
             foreach (var dropZone in _dropZones)
             {
                 if (dropZone.CanDrop(draggingCube))
                 {
                     dropZone.Drop(draggingCube);
-                    return;
+                    return true;
                 }
             }
-            
-            draggingCube.Item.DestroyCube();
+
+            return false;
         }
     }
 }

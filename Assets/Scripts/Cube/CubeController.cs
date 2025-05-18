@@ -1,13 +1,9 @@
 using System;
-using DefaultNamespace;
-using DG.Tweening;
 using DragAndDrop;
 using DragEventsUtils;
 using Settings;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Cube
@@ -26,7 +22,7 @@ namespace Cube
         [SerializeField] private UnityEvent _onDestroyEvent;
         
         [Inject] private GameManager _gameManager;
-        [Inject] private UIController _uiController;
+        [Inject] private UIElementsProvider _uiController;
         [Inject] private CubeCreator _cubeCreator;
         [Inject] private DraggingController _draggingController;
 
@@ -39,8 +35,8 @@ namespace Cube
             _cubeModel.Setup(cubeSettings);
             _cubeView.SetSprite(_cubeModel.CubeSprite);
             _cubeModel.OnDestroyCalledEvent += DestroyCube;
-            _cubeModel.BlockDraggingEvent += () => _dragEventsProvider.BlockDragging = true;
-            _cubeModel.UnblockDraggingEvent += () => _dragEventsProvider.BlockDragging = false;
+            _cubeModel.BlockDraggingEvent += _dragEventsProvider.IgnoreEvents;
+            _cubeModel.UnblockDraggingEvent += _dragEventsProvider.ListenEvents;
         }
 
         public void SetScrollAsDraggableTarget()
@@ -75,8 +71,11 @@ namespace Cube
         public void Drop()
         {
             OnDropEvent?.Invoke();
-            
-            _draggingController.TryDropItem(_draggingCube);
+
+            if (!_draggingController.TryDropItem(_draggingCube))
+            {
+                DestroyCube();
+            }
         }
         
         public void DestroyCube()

@@ -13,6 +13,8 @@ public static class EllipseUtils
         var pointsList = points.ToList();
         var approximateParameters = CalculateApproximateParameters(points);
         
+        pointsList.RemoveAll(p => approximateParameters.ContainsPoint(p));
+        
         var realParameters = approximateParameters;
         var scale = 1f;
         

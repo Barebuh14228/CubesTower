@@ -6,8 +6,8 @@ namespace DragAndDrop
     
     public abstract class DraggingItem<TItem> : DraggingItem
     {
-        [SerializeField] private TItem _item;
+        [SerializeField] private TItem _value;
 
-        public TItem Item => _item; //todo rename
+        public TItem Value => _value;
     }
 }

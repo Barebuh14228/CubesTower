@@ -10,7 +10,7 @@ namespace DragAndDrop
         
         public override void NotifyOnDrop(DraggingCube item)
         {
-            var cubeController = item.Item;
+            var cubeController = item.Value;
             
             var path = new Vector3[]
             {
@@ -18,14 +18,14 @@ namespace DragAndDrop
                 _dropPoint.transform.position + Vector3.up * 350,
             };
         
-            var seq = DOTween.Sequence();
+            var sequence = DOTween.Sequence();
 
             cubeController.transform
                 .DORotate(new Vector3(0, 0, 720), 1.5f, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Restart)
                 .SetLink(cubeController.gameObject);
             
-            seq
+            sequence
                 .SetLink(cubeController.gameObject)
                 .Append(cubeController.transform.DOPath(path, 0.5f, PathType.CatmullRom).SetEase(Ease.InQuad))
                 .AppendCallback(() =>

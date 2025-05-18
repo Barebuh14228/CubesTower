@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towerController: {fileID: 65334475}
+  _dropZone: {fileID: 65334477}
   _onDrop:
     m_PersistentCalls:
       m_Calls:
@@ -718,7 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717a4f957d2e4ae39e46e517ca98ebc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
+  _spawnContainerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
 --- !u!1 &450613558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,11 +1367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scrollDragable: {fileID: 945802869}
   _spawnersContainer: {fileID: 377002670}
-  _draggingParent: {fileID: 1631566525}
-  _holeParent: {fileID: 1185654593}
-  _holeMask: {fileID: 450613558}
-  _holeBottomPoint: {fileID: 313027768}
-  _towerParent: {fileID: 65334472}
 --- !u!4 &1078659204
 Transform:
   m_ObjectHideFlags: 0

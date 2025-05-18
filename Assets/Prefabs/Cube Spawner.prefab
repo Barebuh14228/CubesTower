@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8502588010956216944}
   - component: {fileID: 92275251582054397}
   - component: {fileID: 2248635078798384964}
-  - component: {fileID: 7348014717313137171}
   - component: {fileID: 3725346435010487169}
+  - component: {fileID: 7348014717313137171}
   - component: {fileID: 4748936876423075145}
   m_Layer: 5
   m_Name: Cube Spawner
@@ -80,6 +80,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3725346435010487169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000325711776950885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717a02054ef2699498e6bd4234fd7995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _containerSource: 0
 --- !u!114 &7348014717313137171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,19 +109,6 @@ MonoBehaviour:
   - {fileID: 92275251582054397}
   - {fileID: 2248635078798384964}
   _disableOnStart: 0
---- !u!114 &3725346435010487169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6000325711776950885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 717a02054ef2699498e6bd4234fd7995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _containerSource: 0
 --- !u!114 &4748936876423075145
 MonoBehaviour:
   m_ObjectHideFlags: 0

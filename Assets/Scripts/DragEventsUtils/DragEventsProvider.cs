@@ -7,16 +7,26 @@ namespace DragEventsUtils
     {
         private DragEventsSubscriber _target;
 
-        public bool BlockDragging { get; set; }
-
+        private bool _ignoreEvents;
+        
         public void SetTarget(DragEventsSubscriber target)
         {
             _target = target;
         }
+
+        public void IgnoreEvents()
+        {
+            _ignoreEvents = true;
+        }
+
+        public void ListenEvents()
+        {
+            _ignoreEvents = false;
+        }
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (BlockDragging)
+            if (_ignoreEvents)
                 return;
             
             _target?.OnBeginDrag(eventData);
@@ -24,7 +34,7 @@ namespace DragEventsUtils
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (BlockDragging)
+            if (_ignoreEvents)
                 return;
             
             _target?.OnDrag(eventData);
@@ -32,7 +42,7 @@ namespace DragEventsUtils
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (BlockDragging)
+            if (_ignoreEvents)
                 return;
             
             _target?.OnEndDrag(eventData);

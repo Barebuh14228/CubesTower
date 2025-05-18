@@ -4,7 +4,7 @@ using UnityEngine;
 
 //todo objectpool
     
-public class CubeCreator : MonoBehaviour //todo naming
+public class CubeCreator : MonoBehaviour
 {
     [SerializeField] private CubeController _cubePrefab;
         

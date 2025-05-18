@@ -1,15 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Cube;
-using DefaultNamespace;
 using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using DragAndDrop;
-using DragEventsUtils;
-using ModestTree;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -43,7 +35,7 @@ namespace Tower
             finalPositionRect = cubeRect;
             finalPositionRect.position = GetDropPosition(finalPositionRect) + Vector2.right * offsetX;
             
-            return _rectTransform.ContainRect(finalPositionRect);
+            return _rectTransform.ContainRect(finalPositionRect); //todo меня смущает что я второй раз проверяю, с другой стороны как еще?
         }
 
         public void OnCubeDropped(CubeController cubeController)
