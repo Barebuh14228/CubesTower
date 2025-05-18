@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cube;
@@ -9,12 +10,9 @@ namespace Tower
     {
         private Stack<CubeModel> _cubesStack = new Stack<CubeModel>();
         
-        public Rect TopCubeRect { get; private set; }
-        
         public void AddCube(CubeModel cube)
         {
             _cubesStack.Push(cube);
-            TopCubeRect = cube.RectTransform.GetWorldRect();
         }
 
         public bool ContainCube(CubeModel cube)
@@ -46,9 +44,35 @@ namespace Tower
                 topCubes.Add(removedItem);
             }
 
-            TopCubeRect = _cubesStack.Any() ? _cubesStack.Peek().RectTransform.GetWorldRect() : default;
+            //TopCubeRect = _cubesStack.Any() ? _cubesStack.Peek().RectTransform.GetWorldRect() : default;
 
             return topCubes;
+        }
+
+        public void BlockDragging()
+        {
+            foreach (var cubeModel in _cubesStack)
+            {
+                cubeModel.BlockDragging();
+            }
+        }
+
+        public void UnblockDragging()
+        {
+            foreach (var cubeModel in _cubesStack)
+            {
+                cubeModel.UnblockDragging();
+            }
+        }
+
+        public Rect GetTopCubeRect()
+        {
+            if (_cubesStack.TryPeek(out var cubeModel))
+            {
+                return cubeModel.RectTransform.GetWorldRect();
+            }
+
+            return default;
         }
     }
 }

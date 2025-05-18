@@ -7,6 +7,8 @@ namespace DragEventsUtils
     {
         private DragEventsSubscriber _target;
 
+        public bool BlockDragging { get; set; }
+
         public void SetTarget(DragEventsSubscriber target)
         {
             _target = target;
@@ -14,16 +16,25 @@ namespace DragEventsUtils
         
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (BlockDragging)
+                return;
+            
             _target?.OnBeginDrag(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (BlockDragging)
+                return;
+            
             _target?.OnDrag(eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (BlockDragging)
+                return;
+            
             _target?.OnEndDrag(eventData);
         }
     }

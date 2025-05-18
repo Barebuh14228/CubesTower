@@ -4,6 +4,7 @@ using DG.Tweening;
 using DragAndDrop;
 using DragEventsUtils;
 using Settings;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -37,6 +38,9 @@ namespace Cube
         {
             _cubeModel.Setup(cubeSettings);
             _cubeView.SetSprite(_cubeModel.CubeSprite);
+            _cubeModel.OnDestroyCalledEvent += DestroyCube;
+            _cubeModel.BlockDraggingEvent += () => _dragEventsProvider.BlockDragging = true;
+            _cubeModel.UnblockDraggingEvent += () => _dragEventsProvider.BlockDragging = false;
         }
 
         public void SetScrollAsDraggableTarget()
