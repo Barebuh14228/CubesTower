@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Cube
 {
-    public class CubeController : MonoBehaviour //todo fix superclass
+    public class CubeController : MonoBehaviour
     {
         public event Action OnDropEvent;
         

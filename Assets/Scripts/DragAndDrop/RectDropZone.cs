@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DragAndDrop
 {
-    public class RectDropZone : DropZone<DraggingCube>
+    public class RectDropZone : DropZoneWithSubscriber<DraggingCube>
     {
         [SerializeField] private RectTransform _rectTransform;
 

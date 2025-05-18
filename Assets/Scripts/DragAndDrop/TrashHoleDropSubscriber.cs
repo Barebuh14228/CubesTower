@@ -20,15 +20,20 @@ namespace DragAndDrop
         
             var seq = DOTween.Sequence();
 
-            cubeController.transform.DORotate(new Vector3(0, 0, 720), 1.5f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart);
+            cubeController.transform
+                .DORotate(new Vector3(0, 0, 720), 1.5f, RotateMode.FastBeyond360)
+                .SetLoops(-1, LoopType.Restart)
+                .SetLink(cubeController.gameObject);
+            
             seq
+                .SetLink(cubeController.gameObject)
                 .Append(cubeController.transform.DOPath(path, 0.5f, PathType.CatmullRom).SetEase(Ease.InQuad))
                 .AppendCallback(() =>
                 {
                     cubeController.transform.SetParent(_dropMask.transform, true);
                 })
                 .Append(cubeController.transform.DOMove(_dropPoint.transform.position, 0.2f).SetEase(Ease.Linear))
-                .OnComplete(() =>
+                .OnKill(() =>
                 {
                     cubeController.ReturnToPool();
                 })

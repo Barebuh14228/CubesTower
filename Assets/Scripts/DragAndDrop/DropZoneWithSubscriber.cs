@@ -9,20 +9,18 @@ namespace DragAndDrop
         public abstract bool CanDrop(DraggingItem draggingItem);
     }
     
-    //todo
-    
-    public abstract class DropZone<TDraggingItem> : DropZone where TDraggingItem : DraggingItem
+    public abstract class DropZoneWithSubscriber<TDraggingItem> : DropZone where TDraggingItem : DraggingItem
     {
         [SerializeField] private DropSubscriber<TDraggingItem> _subscriber;
 
         public sealed override void Drop(DraggingItem draggingItem)
         {
-            DropItem(draggingItem as TDraggingItem); //todo мне не нравиться
+            DropItem(draggingItem as TDraggingItem);
         }
 
         public sealed override bool CanDrop(DraggingItem draggingItem)
         {
-            return CanDropItem(draggingItem as TDraggingItem); //todo мне не нравиться
+            return CanDropItem(draggingItem as TDraggingItem);
         }
         
         private void DropItem(TDraggingItem draggingItem)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DragAndDrop
 {
-    public class EllipseDropZone : DropZone<DraggingCube>
+    public class EllipseDropZone : DropZoneWithSubscriber<DraggingCube>
     {
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private float _ellipseScalingStep = 0.01f;

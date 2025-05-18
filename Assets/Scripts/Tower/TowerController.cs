@@ -17,14 +17,29 @@ namespace Tower
         [SerializeField] private RectTransform _rectTransform;
 
         private Lazy<Rect> _worldRect;
-
-        //todo block from dropping while animating
         
         private void Start()
         {
             _worldRect = new (() => _rectTransform.GetWorldRect());
         }
 
+        public bool CanDropCube(CubeController cubeController, out Rect finalPositionRect)
+        {
+            var cubeWorldRect = cubeController.Model.RectTransform.GetWorldRect();
+            
+            finalPositionRect = CalculateDropRect(cubeWorldRect);
+            
+            return _rectTransform.ContainRect(finalPositionRect);
+        }
+
+        public void OnCubeDropped(CubeController cubeController)
+        {
+            var cubeRectTransform = cubeController.Model.RectTransform;
+            cubeRectTransform.SetParent(_rectTransform,true);
+            _towerModel.AddItem(cubeController.Model);
+            RecalculateBoundaries();
+        }
+        
         public void OnCubeDragged(CubeController cubeController)
         {
             if (!_towerModel.ContainItem(cubeController.Model))
@@ -57,34 +72,6 @@ namespace Tower
             sequence
                 .OnComplete(RecalculateBoundaries)
                 .Play();
-        }
-        
-        public void TryDropCube(CubeController cubeController)
-        {
-            var cubeWorldRect = cubeController.Model.RectTransform.GetWorldRect();
-            var dropRect = CalculateDropRect(cubeWorldRect);
-            
-            if (!_rectTransform.ContainRect(dropRect))
-            {
-                cubeController.DestroyCube();
-                return;
-            }
-                    
-            _towerModel.AddItem(cubeController.Model);
-                
-            var cubeRectTransform = cubeController.Model.RectTransform;
-            cubeRectTransform.SetParent(_rectTransform,true);
-            
-            var seq = DOTween.Sequence();
-            var points = new Vector3[]
-            {
-                cubeWorldRect.center,
-                dropRect.center + Vector2.up * 70,
-                dropRect.center
-            };
-
-            seq.Append(cubeController.transform.DOPath(points, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
-            seq.OnComplete(RecalculateBoundaries).Play();
         }
 
         private void RecalculateBoundaries()

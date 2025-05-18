@@ -201,6 +201,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towerController: {fileID: 65334475}
+  _onDrop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 65334475}
+        m_TargetAssemblyTypeName: Tower.TowerController, Assembly-CSharp
+        m_MethodName: OnCubeDropped
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &65334477
 MonoBehaviour:
   m_ObjectHideFlags: 0
