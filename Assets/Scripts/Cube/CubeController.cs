@@ -41,17 +41,6 @@ namespace Cube
         {
             _gameManager.OnCubeDestroyed(this);
         }
-
-        public void Drag()
-        {
-            _gameManager.DragCube(this);
-            RectTransform.localScale = Vector3.one;
-        }
-        
-        public void Drop()
-        {
-            _gameManager.DropCube(this);
-        }
         
         public void DestroyCube()
         {

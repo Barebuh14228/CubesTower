@@ -3,7 +3,7 @@ using DragAndDrop;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TrashHole : DropSubscriber<DraggingCube>
+public class TrashHole : MonoBehaviour
 {
     [SerializeField] private Transform _topPoint;
     [SerializeField] private Transform _bottomPoint;
@@ -11,7 +11,7 @@ public class TrashHole : DropSubscriber<DraggingCube>
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private UnityEvent _onDropStart;
         
-    protected override void NotifyOnDrop(DraggingCube item)
+    public void OnCubeDropped(DraggingCube item)
     {
         var cubeController = item.Value;
             

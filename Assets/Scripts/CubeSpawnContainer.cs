@@ -1,11 +1,12 @@
 using System;
 using Cube;
 using DG.Tweening;
+using DragAndDrop;
 using DragEventsUtils;
 using Settings;
 using UnityEngine;
 
-public class CubeSpawnContainer : MonoBehaviour
+public class CubeSpawnContainer : DragSubscriber<DraggingCube>
 {
     [SerializeField] private LayoutComponentsDisabler _layoutComponentsDisabler;
     
@@ -70,17 +71,19 @@ public class CubeSpawnContainer : MonoBehaviour
     {
         transform.DOPunchScale(Vector3.one * 0.2f, 0.5f, 3);
     }
-
-    public void CheckCubeDraggingState()
+    
+    protected override void NotifyOnDrag(DraggingCube draggingItem)
     {
-        if (!_cubeController.DefaultDragTarget.IsDragging)
-        {
-            _cubeController.DragEventsProvider.SetTarget(_dragTarget);
-        }
-        else
-        {
-            _cubeController = null;
-        }
+        if (draggingItem.Value.Id != _cubeController.Id)
+            return;
+        
+        _cubeController.RectTransform.localScale = Vector3.one;
+        _cubeController = null;
+    }
+
+    public void OnPointerPush()
+    {
+        _cubeController?.DragEventsProvider.SetTarget(_dragTarget);
     }
 
     public void PlayPushAnimForward()
@@ -92,4 +95,6 @@ public class CubeSpawnContainer : MonoBehaviour
     {
         _lazySequence.Value.PlayBackwards();
     }
+
+    
 }

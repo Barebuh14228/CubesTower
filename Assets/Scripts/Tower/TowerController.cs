@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Tower
 {
-    public class TowerController : DropSubscriber<DraggingCube>
+    public class TowerController : DragSubscriber<DraggingCube>
     {
         [SerializeField] private TowerModel _towerModel;
         [SerializeField] private EllipseDropZone _dropZone;
@@ -29,7 +29,7 @@ namespace Tower
             _bottomY = new (() => _rectTransform.GetWorldCornersArray().First().y);
         }
         
-        protected override void NotifyOnDrop(DraggingCube item)
+        public void OnCubeDroped(DraggingCube item)
         {
             var cube = item.Value;
             
@@ -82,6 +82,11 @@ namespace Tower
                 cube.DragEventsProvider.ListenEvents();
             });
             _sequence.Play();
+        }
+        
+        protected override void NotifyOnDrag(DraggingCube draggingItem)
+        {
+            OnCubeDragged(draggingItem.Value);
         }
         
         public void OnCubeDragged(CubeController cubeController)

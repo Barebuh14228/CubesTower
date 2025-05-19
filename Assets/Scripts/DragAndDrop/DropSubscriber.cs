@@ -4,13 +4,12 @@ namespace DragAndDrop
 {
     public abstract class DropSubscriber : MonoBehaviour
     {
-        public abstract void NotifyOnDrop(DraggingItem item);
+        public abstract void NotifyOnDrop(DraggingItem draggingItem);
     }
-    
+
     public abstract class DropSubscriber<TDraggingItem> : DropSubscriber where TDraggingItem : DraggingItem
     {
-        public sealed override void NotifyOnDrop(DraggingItem item) => NotifyOnDrop(item as TDraggingItem);
-
-        protected abstract void NotifyOnDrop(TDraggingItem item);
+        public sealed override void NotifyOnDrop(DraggingItem draggingItem) => NotifyOnDrop(draggingItem as TDraggingItem);
+        protected abstract void NotifyOnDrop(TDraggingItem draggingItem);
     }
 }

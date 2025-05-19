@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b29971080842b893e7279d8288eada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: {fileID: 2443177633378752320}
   _rectTransform: {fileID: 1103328599578517104}
+  _value: {fileID: 2443177633378752320}
 --- !u!114 &1483046697977457111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,37 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1272774cdb9c4ea19d6055d54993f493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 1103328599578517104}
-  OnBeginDragEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: Drag
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnEndDragEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: Drop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _draggingCube: {fileID: 2247926750559418796}
 --- !u!114 &6975771663007736407
 MonoBehaviour:
   m_ObjectHideFlags: 0

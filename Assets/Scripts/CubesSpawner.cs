@@ -1,23 +1,28 @@
+using DragAndDrop;
 using DragEventsUtils;
 using Settings;
 using UnityEngine;
 
-public class CubesSpawner : MonoBehaviour
+public class CubesSpawner : DropSubscriber<DraggingCube>
 {
     [SerializeField] private CubeSpawnContainer _spawnContainerPrefab;
+    [SerializeField] private DraggingController _draggingController;
     [SerializeField] private DragEventsListener _defaultDragTarget;
     [SerializeField] private CubesPool _cubesPool;
 
     private CubeSpawnContainer[] _containers;
     
-    public void CreateSpawners(CubeSettings[] settingsArray)
+    public void Setup(CubeSettings[] settingsArray)
     {
         _containers = new CubeSpawnContainer[settingsArray.Length];
 
         for (int i = 0; i < _containers.Length; i++)
         {
             _containers[i] = CreateSpawner(settingsArray[i]);
+            _draggingController.AddDragSubscriber(_containers[i]);
         }
+
+        SpawnCubes();
     }
     
     private CubeSpawnContainer CreateSpawner(CubeSettings settings)
@@ -30,7 +35,7 @@ public class CubesSpawner : MonoBehaviour
         return spawner;
     }
 
-    public void SpawnCubes()
+    private void SpawnCubes()
     {
         foreach (var container in _containers)
         {
@@ -44,5 +49,10 @@ public class CubesSpawner : MonoBehaviour
             container.PlayAppearAnimation();
             container.SetCube(cube);
         }
+    }
+
+    protected override void NotifyOnDrop(DraggingCube draggingItem)
+    {
+        SpawnCubes();
     }
 }

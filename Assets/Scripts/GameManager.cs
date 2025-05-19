@@ -65,23 +65,7 @@ public class GameManager : MonoBehaviour
             presets = arrayWrapper.Presets;
         }
         
-        _cubesSpawner.CreateSpawners(presets);
-        _cubesSpawner.SpawnCubes();
-    }
-
-    public void DragCube(CubeController cubeController)
-    {
-        _towerController.OnCubeDragged(cubeController);
-        _draggingController.StartDragging(cubeController.DraggingCube);
-    }
-    
-    public void DropCube(CubeController cubeController)
-    {
-        if (!_draggingController.TryDropItem(cubeController.DraggingCube))
-        {
-            cubeController.DestroyCube();
-        }
-        _cubesSpawner.SpawnCubes();
+        _cubesSpawner.Setup(presets);
     }
 
     public void OnCubeDestroyed(CubeController cubeController)
