@@ -89,7 +89,7 @@ namespace Tower
             OnCubeDragged(draggingItem.Value);
         }
         
-        public void OnCubeDragged(CubeController cubeController)
+        private void OnCubeDragged(CubeController cubeController)
         {
             if (!_towerModel.ContainCube(cubeController))
                 return;
