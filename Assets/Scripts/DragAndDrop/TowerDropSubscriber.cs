@@ -3,6 +3,7 @@ using DG.Tweening;
 using Tower;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace DragAndDrop
 {
@@ -10,7 +11,7 @@ namespace DragAndDrop
     {
         [SerializeField] private TowerController _towerController;
         [SerializeField] private DropZone _dropZone;
-        [SerializeField] private UnityEvent<CubeController> _onDrop;
+        [SerializeField] private UnityEvent<CubeController> _onDropFinished;
         
         private Sequence _sequence;
         
@@ -44,7 +45,7 @@ namespace DragAndDrop
             _sequence.Append(cubeController.transform.DOPath(points, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
             _sequence.OnComplete(() =>
             {
-                _onDrop?.Invoke(cubeController);
+                _onDropFinished?.Invoke(cubeController);
                 cubeController.DragEventsProvider.ListenEvents();
             });
             _sequence.Play();

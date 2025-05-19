@@ -4,6 +4,7 @@ using Cube;
 using DG.Tweening;
 using DragAndDrop;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace Tower
@@ -13,6 +14,7 @@ namespace Tower
         [SerializeField] private TowerModel _towerModel;
         [SerializeField] private EllipseDropZone _dropZone;
         [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private UnityEvent _onCubeDropped;
 
         private Lazy<float> _bottomY;
         private Sequence _dropSequence;
@@ -48,6 +50,7 @@ namespace Tower
             cubeRectTransform.SetParent(_rectTransform,true);
             _towerModel.AddCube(cubeController);
             RecalculateBoundaries();
+            _onCubeDropped?.Invoke();
         }
         
         public void OnCubeDragged(CubeController cubeController)
@@ -81,6 +84,7 @@ namespace Tower
                 if (centerOffset < cubeRect.width / 2)
                 {
                     _towerModel.AddCube(cube);
+                    tween.OnComplete(() => _onCubeDropped?.Invoke());
                 }
                 else
                 {

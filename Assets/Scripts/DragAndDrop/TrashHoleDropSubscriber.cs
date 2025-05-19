@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DragAndDrop
 {
@@ -9,6 +10,7 @@ namespace DragAndDrop
         [SerializeField] private Transform _bottomPoint;
         [SerializeField] private Transform _dropMask;
         [SerializeField] private GameManager _gameManager;
+        [SerializeField] private UnityEvent _onDropStart;
         
         public override void NotifyOnDrop(DraggingCube item)
         {
@@ -26,9 +28,10 @@ namespace DragAndDrop
                 .DORotate(new Vector3(0, 0, 720), 1.5f, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Restart)
                 .SetLink(cubeController.gameObject);
-            
+
             sequence
-                .Append(cubeController.transform.DOPath(path, 0.5f, PathType.CatmullRom).SetEase(Ease.InQuad))
+                .OnStart(() => _onDropStart?.Invoke())
+                .Append(cubeController.transform.DOPath(path, 1f, PathType.CatmullRom).SetEase(Ease.InQuad))
                 .AppendCallback(() =>
                 {
                     cubeController.transform.SetParent(_dropMask.transform, true);
@@ -37,8 +40,7 @@ namespace DragAndDrop
                 .OnKill(() =>
                 {
                     _gameManager.OnCubeDestroyed(cubeController);
-                })
-                .Play();
+                });
         }
     }
 }
