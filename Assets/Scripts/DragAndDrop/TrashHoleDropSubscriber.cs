@@ -7,6 +7,7 @@ namespace DragAndDrop
     {
         [SerializeField] private Transform _dropPoint;
         [SerializeField] private Transform _dropMask;
+        [SerializeField] private GameManager _gameManager;
         
         public override void NotifyOnDrop(DraggingCube item)
         {
@@ -35,7 +36,7 @@ namespace DragAndDrop
                 .Append(cubeController.transform.DOMove(_dropPoint.transform.position, 0.2f).SetEase(Ease.Linear))
                 .OnKill(() =>
                 {
-                    cubeController.ReturnToPool();
+                    _gameManager.OnCubeDestroyed(cubeController);
                 })
                 .Play();
         }

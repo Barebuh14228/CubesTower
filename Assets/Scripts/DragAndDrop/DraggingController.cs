@@ -12,13 +12,13 @@ namespace DragAndDrop
             draggingItem.transform.SetParent(_draggingParent);
         }
         
-        public bool TryDropItem(DraggingCube draggingCube)
+        public bool TryDropItem(DraggingItem draggingItem)
         {
             foreach (var dropZone in _dropZones)
             {
-                if (dropZone.CanDrop(draggingCube))
+                if (dropZone.CanDrop(draggingItem))
                 {
-                    dropZone.Drop(draggingCube);
+                    dropZone.Drop(draggingItem);
                     return true;
                 }
             }

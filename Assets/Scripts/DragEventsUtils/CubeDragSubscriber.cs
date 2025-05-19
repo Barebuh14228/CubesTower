@@ -11,8 +11,11 @@ namespace DragEventsUtils
         [SerializeField] private UnityEvent OnBeginDragEvent;
         [SerializeField] private UnityEvent OnEndDragEvent;
         
+        public bool IsDragging { get; private set; }
+        
         public override void OnBeginDrag(PointerEventData eventData)
         {
+            IsDragging = true;
             OnBeginDragEvent?.Invoke();
         }
         
@@ -23,6 +26,7 @@ namespace DragEventsUtils
 
         public override void OnEndDrag(PointerEventData eventData)
         {
+            IsDragging = false;
             OnEndDragEvent?.Invoke();
         }
     }

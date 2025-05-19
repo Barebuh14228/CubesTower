@@ -1,4 +1,3 @@
-using DG.Tweening;
 using DragAndDrop;
 using DragEventsUtils;
 using Settings;
@@ -14,16 +13,15 @@ namespace Cube
         [SerializeField] private CubeView _cubeView;
         [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
-        [SerializeField] private DraggingCube _draggingCube;
-        
+        [SerializeField] private DraggingItem _draggingItem;
         [SerializeField] private UnityEvent _onDestroyEvent;
         
         [Inject] private GameManager _gameManager;
-        [Inject] private CubeCreator _cubeCreator;
-        [Inject] private DraggingController _draggingController;
         
         public CubeModel Model => _cubeModel;
-        public bool IsDragging { get; private set; }
+        public DraggingItem DraggingItem => _draggingItem;
+        public DragEventsProvider DragEventsProvider => _dragEventsProvider;
+        public CubeDragSubscriber DefaultDragTarget => _cubeDragSubscriber;
 
         public void Setup(CubeSettings cubeSettings)
         {
@@ -33,37 +31,19 @@ namespace Cube
             _cubeModel.BlockDraggingEvent += _dragEventsProvider.IgnoreEvents;
             _cubeModel.UnblockDraggingEvent += _dragEventsProvider.ListenEvents;
         }
-
-        public void OverrideDragTarget(DragEventsSubscriber dragSubscriber)
-        {
-            _dragEventsProvider.SetTarget(dragSubscriber);
-        }
-
-        public void ResetDragTarget()
-        {
-            _dragEventsProvider.SetTarget(_cubeDragSubscriber);
-        }
         
-        public void ReturnToPool()
+        public void OnDestroyAnimationComplete()
         {
-            _cubeCreator.ReturnToPool(this);
+            _gameManager.OnCubeDestroyed(this);
         }
 
         public void Drag()
         {
-            IsDragging = true;
-            _draggingController.StartDragging(_draggingCube);
             _gameManager.DragCube(this);
         }
         
         public void Drop()
         {
-            IsDragging = false;
-            if (!_draggingController.TryDropItem(_draggingCube))
-            {
-                DestroyCube();
-            }
-            
             _gameManager.DropCube(this);
         }
         

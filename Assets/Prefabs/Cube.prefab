@@ -154,21 +154,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnDragCanceledEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2443177633378752320}
-        m_TargetAssemblyTypeName: Cube.CubeController, Assembly-CSharp
-        m_MethodName: DragCanceled
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &6975771663007736407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,22 +195,7 @@ MonoBehaviour:
   _cubeView: {fileID: 924341056408384543}
   _cubeDragSubscriber: {fileID: 1483046697977457111}
   _dragEventsProvider: {fileID: 6975771663007736407}
-  _draggingCube: {fileID: 2247926750559418796}
-  _onAppearEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3953975482173831053}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Appear
-          m_BoolArgument: 0
-        m_CallState: 2
+  _draggingItem: {fileID: 2247926750559418796}
   _onDestroyEvent:
     m_PersistentCalls:
       m_Calls:

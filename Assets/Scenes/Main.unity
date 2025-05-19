@@ -377,7 +377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerController: {fileID: 65334475}
   _cubesSpawner: {fileID: 377002670}
-  _draggingController: {fileID: 0}
+  _draggingController: {fileID: 244817368}
+  _cubeCreator: {fileID: 1780871544}
 --- !u!1 &156865015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,6 +1513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dropPoint: {fileID: 313027769}
   _dropMask: {fileID: 450613559}
+  _gameManager: {fileID: 123243860}
 --- !u!114 &1185654597
 MonoBehaviour:
   m_ObjectHideFlags: 0

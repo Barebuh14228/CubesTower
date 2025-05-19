@@ -53,7 +53,7 @@ public class CubeSpawnContainer : MonoBehaviour
     {
         _cubeController = cubeController;
         _cubeController.transform.SetParent(transform, false);
-        _cubeController.OverrideDragTarget(_dragTarget);
+        _cubeController.DragEventsProvider.SetTarget(_dragTarget);
         
         if (rebuildLayout)
         {
@@ -63,7 +63,7 @@ public class CubeSpawnContainer : MonoBehaviour
     
     private void ReleaseCube()
     {
-        _cubeController.ResetDragTarget();
+        _cubeController.DragEventsProvider.SetTarget(_cubeController.DefaultDragTarget);
     }
     
     public void PlayAppearAnimation()
@@ -73,9 +73,9 @@ public class CubeSpawnContainer : MonoBehaviour
 
     public void CheckCubeDraggingState()
     {
-        if (!_cubeController.IsDragging)
+        if (!_cubeController.DefaultDragTarget.IsDragging)
         {
-            _cubeController.OverrideDragTarget(_dragTarget);
+            _cubeController.DragEventsProvider.SetTarget(_dragTarget);
         }
         else
         {

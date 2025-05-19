@@ -41,7 +41,7 @@ public class CubesSpawner : MonoBehaviour
 
             var cube = _cubeCreator.CreateCube(container.GetSettings());
             
-            cube.OverrideDragTarget(_defaultDragTarget);
+            cube.DragEventsProvider.SetTarget(_defaultDragTarget);
             
             container.PlayAppearAnimation();
             container.SetCube(cube);
