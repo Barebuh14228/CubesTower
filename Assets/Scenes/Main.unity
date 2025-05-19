@@ -132,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 65334472}
   - component: {fileID: 65334477}
-  - component: {fileID: 65334476}
   - component: {fileID: 65334474}
   - component: {fileID: 65334475}
   - component: {fileID: 65334478}
@@ -204,62 +203,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &65334476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65334471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94058f6ba083413d9415e3141239f3ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _towerController: {fileID: 65334475}
-  _dropZone: {fileID: 65334477}
-  _onDropStarted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 65334475}
-        m_TargetAssemblyTypeName: Tower.TowerController, Assembly-CSharp
-        m_MethodName: BlockTowerCubesDragging
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onDropFinished:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 65334475}
-        m_TargetAssemblyTypeName: Tower.TowerController, Assembly-CSharp
-        m_MethodName: DropCube
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 65334475}
-        m_TargetAssemblyTypeName: Tower.TowerController, Assembly-CSharp
-        m_MethodName: UnblockTowerCubesDragging
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &65334477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b8847e61d943e4ba886e13b407f674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _subscriber: {fileID: 0}
+  _subscriber: {fileID: 65334475}
   _rectTransform: {fileID: 65334472}
   _ellipseScalingStep: 0.2
 --- !u!82 &65334478
