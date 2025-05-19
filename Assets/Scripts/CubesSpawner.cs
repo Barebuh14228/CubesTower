@@ -1,14 +1,12 @@
 using DragEventsUtils;
 using Settings;
 using UnityEngine;
-using Zenject;
 
 public class CubesSpawner : MonoBehaviour
 {
     [SerializeField] private CubeSpawnContainer _spawnContainerPrefab;
     [SerializeField] private DragEventsSubscriber _defaultDragTarget;
-    
-    [Inject] private CubeCreator _cubeCreator;
+    [SerializeField] private CubeCreator _cubeCreator;
 
     private CubeSpawnContainer[] _containers;
     

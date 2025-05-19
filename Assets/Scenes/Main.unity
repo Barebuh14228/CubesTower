@@ -724,6 +724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnContainerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
   _defaultDragTarget: {fileID: 945802869}
+  _cubeCreator: {fileID: 1780871544}
 --- !u!1 &450613558
 GameObject:
   m_ObjectHideFlags: 0
