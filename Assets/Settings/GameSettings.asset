@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _presets:
-  - _cubeColor: {r: 1, g: 0.5330188, b: 0.5330188, a: 1}
-  - _cubeColor: {r: 0.6491803, g: 1, b: 0.514151, a: 1}
-  - _cubeColor: {r: 1, g: 0.94098115, b: 0.3726415, a: 1}
-  - _cubeColor: {r: 1, g: 0.68552756, b: 0.4481132, a: 1}
-  - _cubeColor: {r: 1, g: 0.2028302, b: 0.2028302, a: 1}
-  - _cubeColor: {r: 0, g: 1, b: 0.5436084, a: 1}
-  - _cubeColor: {r: 0.19339621, g: 1, b: 0.9355789, a: 1}
-  - _cubeColor: {r: 0.33490568, g: 0.52351063, b: 1, a: 1}
-  - _cubeColor: {r: 1, g: 0.25943398, b: 0.9853741, a: 1}
-  - _cubeColor: {r: 0.24817371, g: 1, b: 0, a: 1}
+  - _cubeColor: {r: 1, g: 0, b: 0, a: 1}
+  - _cubeColor: {r: 1, g: 0, b: 0.8965087, a: 1}
+  - _cubeColor: {r: 0.49672937, g: 0, b: 1, a: 1}
+  - _cubeColor: {r: 0.10662842, g: 0, b: 1, a: 1}
+  - _cubeColor: {r: 0, g: 0.5295541, b: 1, a: 1}
+  - _cubeColor: {r: 0, g: 0.9357915, b: 1, a: 1}
+  - _cubeColor: {r: 0, g: 1, b: 0.30203557, a: 1}
+  - _cubeColor: {r: 0.71687007, g: 1, b: 0, a: 1}
+  - _cubeColor: {r: 1, g: 0.4504516, b: 0, a: 1}
+  - _cubeColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}

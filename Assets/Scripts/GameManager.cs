@@ -3,11 +3,14 @@ using DragAndDrop;
 using Settings;
 using Tower;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
     
 public class GameManager : MonoBehaviour
 {
+    [Header("JSON Usage")]
+    [SerializeField] private TextAsset _json;
+    [SerializeField] private bool _useJSONPresets;
+    [Space]
     [SerializeField] private TowerController _towerController;
     [SerializeField] private CubesSpawner _cubesSpawner;
     [SerializeField] private DraggingController _draggingController;
@@ -22,7 +25,15 @@ public class GameManager : MonoBehaviour
 
     private void CreateSpawners()
     {
-        _cubesSpawner.CreateSpawners(_cubePresets.Presets);
+        var presets = _cubePresets.Presets;
+        
+        if (_useJSONPresets)
+        {
+            var arrayWrapper = JsonUtility.FromJson<CubeSettingsArrayWrapper>(_json.text);
+            presets = arrayWrapper.Presets;
+        }
+        
+        _cubesSpawner.CreateSpawners(presets);
         _cubesSpawner.SpawnCubes();
     }
 

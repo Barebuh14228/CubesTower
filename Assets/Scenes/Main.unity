@@ -514,6 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6407f65c9cd4683ba7308b30f64e031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _json: {fileID: 4900000, guid: da9fc39e94297c8409c37d9df999fb45, type: 3}
+  _useJSONPresets: 0
   _towerController: {fileID: 65334475}
   _cubesSpawner: {fileID: 377002670}
   _draggingController: {fileID: 244817368}
