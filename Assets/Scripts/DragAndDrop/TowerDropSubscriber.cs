@@ -39,8 +39,14 @@ namespace DragAndDrop
                 finalPositionRect.center
             };
             
+            cubeController.DragEventsProvider.IgnoreEvents();
+            
             _sequence.Append(cubeController.transform.DOPath(points, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
-            _sequence.OnComplete(() => _onDrop?.Invoke(cubeController));
+            _sequence.OnComplete(() =>
+            {
+                _onDrop?.Invoke(cubeController);
+                cubeController.DragEventsProvider.ListenEvents();
+            });
             _sequence.Play();
         }
     }

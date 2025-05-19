@@ -5,7 +5,8 @@ namespace DragAndDrop
 {
     public class TrashHoleDropSubscriber : DropSubscriber<DraggingCube>
     {
-        [SerializeField] private Transform _dropPoint;
+        [SerializeField] private Transform _topPoint;
+        [SerializeField] private Transform _bottomPoint;
         [SerializeField] private Transform _dropMask;
         [SerializeField] private GameManager _gameManager;
         
@@ -15,8 +16,8 @@ namespace DragAndDrop
             
             var path = new []
             {
-                cubeController.RectTransform.position,
-                _dropPoint.transform.position + Vector3.up * 350,
+                cubeController.transform.position,
+                _topPoint.transform.position
             };
         
             var sequence = DOTween.Sequence();
@@ -27,13 +28,12 @@ namespace DragAndDrop
                 .SetLink(cubeController.gameObject);
             
             sequence
-                .SetLink(cubeController.gameObject)
                 .Append(cubeController.transform.DOPath(path, 0.5f, PathType.CatmullRom).SetEase(Ease.InQuad))
                 .AppendCallback(() =>
                 {
                     cubeController.transform.SetParent(_dropMask.transform, true);
                 })
-                .Append(cubeController.transform.DOMove(_dropPoint.transform.position, 0.2f).SetEase(Ease.Linear))
+                .Append(cubeController.transform.DOMove(_bottomPoint.transform.position, 0.2f).SetEase(Ease.Linear))
                 .OnKill(() =>
                 {
                     _gameManager.OnCubeDestroyed(cubeController);

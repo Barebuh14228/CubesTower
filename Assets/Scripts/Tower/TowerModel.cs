@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Cube;
 using UnityEngine;
 
@@ -9,6 +8,8 @@ namespace Tower
     {
         private Stack<CubeController> _cubesStack = new Stack<CubeController>();
         
+        public IReadOnlyCollection<CubeController> Cubes => _cubesStack.ToArray();
+        
         public void AddCube(CubeController cube)
         {
             _cubesStack.Push(cube);
@@ -17,16 +18,6 @@ namespace Tower
         public bool ContainCube(CubeController cube)
         {
             return _cubesStack.Contains(cube);
-        }
-
-        public bool HaveCubes()
-        {
-            return _cubesStack.Count > 0;
-        }
-        
-        public Vector2[] GetCubesCorners()
-        {
-            return _cubesStack.SelectMany(cube => cube.RectTransform.GetWorldCornersArray()).ToArray();
         }
 
         public List<CubeController> RemoveCube(CubeController item)
@@ -44,32 +35,6 @@ namespace Tower
             }
             
             return topCubes;
-        }
-
-        public void BlockDragging()
-        {
-            foreach (var cube in _cubesStack)
-            {
-                cube.DragEventsProvider.IgnoreEvents();
-            }
-        }
-
-        public void UnblockDragging()
-        {
-            foreach (var cube in _cubesStack)
-            {
-                cube.DragEventsProvider.ListenEvents();
-            }
-        }
-
-        public Rect GetTopCubeRect()
-        {
-            if (_cubesStack.TryPeek(out var cube))
-            {
-                return cube.RectTransform.GetWorldRect();
-            }
-
-            return default;
         }
     }
 }
