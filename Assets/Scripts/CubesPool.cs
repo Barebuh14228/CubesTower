@@ -1,5 +1,6 @@
 using Cube;
 using DG.Tweening;
+using Save;
 using Settings;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -45,11 +46,16 @@ public class CubesPool : MonoBehaviour
     
     public CubeController Get(CubeSettings cubeSettings)
     {
-        var cube = _cubesPool.Get();
+        var cube = Get();
         
-        cube.Setup(cubeSettings);
+        cube.Setup(cubeSettings.Color);
 
         return cube;
+    }
+
+    public CubeController Get()
+    {
+        return _cubesPool.Get();
     }
 
     public void Release(CubeController cubeController)

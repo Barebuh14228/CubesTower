@@ -1,7 +1,12 @@
+using System;
+using UnityEngine;
+
 namespace Save
 {
-    public class CubeSave
+    [Serializable]
+    public class CubeModelSave
     {
-        
+        public Color Color;
+        public Vector3 Position;
     }
 }

@@ -1,5 +1,8 @@
+using System.Collections;
+using System.IO;
 using Cube;
 using DragAndDrop;
+using Save;
 using Settings;
 using Tower;
 using UnityEngine;
@@ -20,9 +23,38 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        TryLoadSave();
         CreateSpawners();
     }
 
+    private void TryLoadSave()
+    {
+        if (!File.Exists(Application.persistentDataPath + "/save.json"))
+            return;
+
+        StartCoroutine(WaitForRebuild());
+    }
+
+    private IEnumerator WaitForRebuild()
+    {   
+        yield return new WaitForEndOfFrame();
+        
+        var saveString = File.ReadAllText(Application.persistentDataPath + "/save.json");
+        var saveObject = JsonUtility.FromJson<TowerSave>(saveString);
+        
+        foreach (var cubeSave in saveObject.Cubes)
+        {
+            var cube = _cubesPool.Get();
+            cube.DragEventsProvider.SetTarget(cube.DefaultDragTarget);
+            cube.Restore(cubeSave);
+            cube.transform.position = cubeSave.Position;
+            cube.transform.SetParent(_towerController.transform, true);
+            cube.transform.localScale = Vector3.one;
+            _towerController.TowerModel.AddCube(cube);
+            _towerController.RecalculateBoundaries();
+        }
+    }
+    
     private void CreateSpawners()
     {
         var presets = _cubePresets.Presets;
@@ -55,5 +87,14 @@ public class GameManager : MonoBehaviour
     public void OnCubeDestroyed(CubeController cubeController)
     {
         _cubesPool.Release(cubeController);
+    }
+
+    public void SaveState()
+    {
+        var save = _towerController.TowerModel.GetSave();
+        
+        var json = JsonUtility.ToJson(save);
+            
+        File.WriteAllText(Application.persistentDataPath + "/save.json", json);
     }
 }

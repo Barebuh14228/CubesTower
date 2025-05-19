@@ -5,6 +5,7 @@ using DG.Tweening;
 using DragAndDrop;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Tower
@@ -16,8 +17,12 @@ namespace Tower
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private UnityEvent _onCubeDropped;
 
+        [Inject] private GameManager _gameManager;
+        
         private Lazy<float> _bottomY;
         private Sequence _dropSequence;
+
+        public TowerModel TowerModel => _towerModel;
         
         private void Start()
         {
@@ -51,6 +56,7 @@ namespace Tower
             _towerModel.AddCube(cubeController);
             RecalculateBoundaries();
             _onCubeDropped?.Invoke();
+            _gameManager.SaveState();
         }
         
         public void OnCubeDragged(CubeController cubeController)
@@ -103,7 +109,7 @@ namespace Tower
             });
         }
         
-        private void RecalculateBoundaries()
+        public void RecalculateBoundaries()
         {
             var points = _towerModel.Cubes
                 .SelectMany(c => c.RectTransform.GetWorldCornersArray())

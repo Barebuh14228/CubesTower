@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using DragAndDrop;
 using DragEventsUtils;
+using Save;
 using Settings;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,10 +31,10 @@ namespace Cube
         public RectTransform RectTransform => _draggingCube.RectTransform;
         public string Id { get; private set; }
 
-        public void Setup(CubeSettings cubeSettings)
+        public void Setup(Color color)
         {
-            _cubeModel.Setup(cubeSettings);
-            _image.color = cubeSettings.Color;
+            _cubeModel.Setup(color);
+            _image.color = color;
         }
         
         public void OnDestroyAnimationComplete()
@@ -66,6 +67,12 @@ namespace Cube
             transform.DOKill();
             _dragEventsProvider.ListenEvents();
             _canvasGroup.alpha = 1;
+        }
+
+        public void Restore(CubeModelSave save)
+        {
+            _cubeModel.Setup(save.Color);
+            _image.color = save.Color;
         }
 
         public void GenerateId()

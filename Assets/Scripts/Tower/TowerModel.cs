@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cube;
+using Save;
 using UnityEngine;
 
 namespace Tower
@@ -36,6 +37,14 @@ namespace Tower
             }
             
             return topCubes;
+        }
+
+        public TowerSave GetSave()
+        {
+            return new TowerSave()
+            {
+                Cubes = _cubesStack.Select(c => c.Model.GetSave()).Reverse().ToArray()
+            };
         }
     }
 }
