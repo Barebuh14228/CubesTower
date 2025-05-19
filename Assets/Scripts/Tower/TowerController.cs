@@ -61,7 +61,6 @@ namespace Tower
             var cubesToMoveDown = _towerModel.RemoveCube(cubeController);
             
             cubesToMoveDown.Reverse();
-            cubesToMoveDown.ForEach(c => c.DragEventsProvider.IgnoreEvents());
             
             BlockTowerCubesDragging();
             
@@ -71,6 +70,8 @@ namespace Tower
             
             foreach (var cube in cubesToMoveDown)
             {
+                cube.DragEventsProvider.IgnoreEvents();
+                
                 var haveCubes = _towerModel.Cubes.Any();
                 var topCubeRect = haveCubes
                     ? _towerModel.Cubes.First().RectTransform.GetWorldRect() 
@@ -97,8 +98,8 @@ namespace Tower
             
             _dropSequence.OnComplete(() =>
             {
-                UnblockTowerCubesDragging();
                 RecalculateBoundaries();
+                UnblockTowerCubesDragging();
             });
         }
         
@@ -131,7 +132,7 @@ namespace Tower
             return new Vector2(minX, minY);
         }
         
-        private void BlockTowerCubesDragging()
+        public void BlockTowerCubesDragging()
         {
             foreach (var cube in _towerModel.Cubes)
             {
@@ -139,7 +140,7 @@ namespace Tower
             }
         }
         
-        private void UnblockTowerCubesDragging()
+        public void UnblockTowerCubesDragging()
         {
             foreach (var cube in _towerModel.Cubes)
             {

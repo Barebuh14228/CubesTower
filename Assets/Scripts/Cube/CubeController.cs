@@ -54,6 +54,7 @@ namespace Cube
         public void DestroyCube()
         {
             _onDestroyEvent?.Invoke();
+            DragEventsProvider.IgnoreEvents();
         }
 
         public void ResetState()

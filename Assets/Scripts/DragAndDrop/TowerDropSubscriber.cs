@@ -11,6 +11,7 @@ namespace DragAndDrop
     {
         [SerializeField] private TowerController _towerController;
         [SerializeField] private DropZone _dropZone;
+        [SerializeField] private UnityEvent<CubeController> _onDropStarted;
         [SerializeField] private UnityEvent<CubeController> _onDropFinished;
         
         private Sequence _sequence;
@@ -41,7 +42,8 @@ namespace DragAndDrop
             };
             
             cubeController.DragEventsProvider.IgnoreEvents();
-            
+
+            _sequence.OnStart(() => _onDropStarted?.Invoke(cubeController));
             _sequence.Append(cubeController.transform.DOPath(points, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
             _sequence.OnComplete(() =>
             {
