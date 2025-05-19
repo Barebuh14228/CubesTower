@@ -13,23 +13,13 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _presets:
-  - _sprite: {fileID: 21300000, guid: 68fb6cf49e4ddd04aa3be1afac30abbe, type: 3}
-  - _sprite: {fileID: 21300000, guid: 284c07f4d29707143a8b9a1fd3877a8a, type: 3}
-  - _sprite: {fileID: 21300000, guid: 0bf4bf5729c038a499cf31c8e2577a99, type: 3}
-  - _sprite: {fileID: 21300000, guid: 0b8795d295743a24b897466dab35f41f, type: 3}
-  - _sprite: {fileID: 21300000, guid: 0d9d88e17d0f73546a3e65c325665f08, type: 3}
-  - _sprite: {fileID: 21300000, guid: eb6ca8d5ba9f6fc468ffe4a294a37ba2, type: 3}
-  - _sprite: {fileID: 21300000, guid: 72eb046dd97eea1419629013eafa474a, type: 3}
-  - _sprite: {fileID: 21300000, guid: cbb0358be4b8bcf46bcc4acca4180453, type: 3}
-  - _sprite: {fileID: 21300000, guid: 6566387507bd572469c649a67ff7ec02, type: 3}
-  - _sprite: {fileID: 21300000, guid: 007a2673525268f4b94e5a54c769e128, type: 3}
-  - _sprite: {fileID: 21300000, guid: 0393f18ed588c2a4f896b5c6fcb8be56, type: 3}
-  - _sprite: {fileID: 21300000, guid: ee5bd4a76144faa4d87410699444b897, type: 3}
-  - _sprite: {fileID: 21300000, guid: 6d09f84d8ffc3af4d9803d6f1bc4b5d5, type: 3}
-  - _sprite: {fileID: 21300000, guid: 7e9093660d874c149bd85ca034b25298, type: 3}
-  - _sprite: {fileID: 21300000, guid: c55fd2d1f835e5441bace394e5a745c9, type: 3}
-  - _sprite: {fileID: 21300000, guid: 36477c9de8a584b46a60a3e73caf167e, type: 3}
-  - _sprite: {fileID: 21300000, guid: 2b12a00e744536d48b4161c8227705d2, type: 3}
-  - _sprite: {fileID: 21300000, guid: 154e494e06809b043906bdd7487cfaf6, type: 3}
-  - _sprite: {fileID: 21300000, guid: 2af5efb78e8f1b14d9338c3aa4c5d526, type: 3}
-  - _sprite: {fileID: 21300000, guid: 14532a2361c27644c9c3c4df1b67a5fa, type: 3}
+  - _cubeColor: {r: 1, g: 0.5330188, b: 0.5330188, a: 1}
+  - _cubeColor: {r: 0.6491803, g: 1, b: 0.514151, a: 1}
+  - _cubeColor: {r: 1, g: 0.94098115, b: 0.3726415, a: 1}
+  - _cubeColor: {r: 1, g: 0.68552756, b: 0.4481132, a: 1}
+  - _cubeColor: {r: 1, g: 0.2028302, b: 0.2028302, a: 1}
+  - _cubeColor: {r: 0, g: 1, b: 0.5436084, a: 1}
+  - _cubeColor: {r: 0.19339621, g: 1, b: 0.9355789, a: 1}
+  - _cubeColor: {r: 0.33490568, g: 0.52351063, b: 1, a: 1}
+  - _cubeColor: {r: 1, g: 0.25943398, b: 0.9853741, a: 1}
+  - _cubeColor: {r: 0.24817371, g: 1, b: 0, a: 1}

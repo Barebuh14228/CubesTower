@@ -14,6 +14,7 @@ namespace Cube
     {
         [SerializeField] private CubeModel _cubeModel;
         [SerializeField] private Image _image;
+        [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private GameObject _explosionAnimObject;
         [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
@@ -32,7 +33,7 @@ namespace Cube
         public void Setup(CubeSettings cubeSettings)
         {
             _cubeModel.Setup(cubeSettings);
-            _image.sprite = _cubeModel.CubeSprite;
+            _image.color = cubeSettings.Color;
         }
         
         public void OnDestroyAnimationComplete()
@@ -64,6 +65,7 @@ namespace Cube
             transform.eulerAngles = Vector3.zero;
             transform.DOKill();
             _dragEventsProvider.ListenEvents();
+            _canvasGroup.alpha = 1;
         }
 
         public void GenerateId()

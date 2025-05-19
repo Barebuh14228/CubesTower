@@ -6,8 +6,8 @@ namespace Settings
     [Serializable]
     public class CubeSettings
     {
-        [SerializeField] private Sprite _sprite;
+        [SerializeField] private Color _cubeColor;
         
-        public Sprite Sprite => _sprite;
+        public Color Color => _cubeColor;
     }
 }
