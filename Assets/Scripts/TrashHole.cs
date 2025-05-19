@@ -11,7 +11,7 @@ public class TrashHole : DropSubscriber<DraggingCube>
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private UnityEvent _onDropStart;
         
-    public override void NotifyOnDrop(DraggingCube item)
+    protected override void NotifyOnDrop(DraggingCube item)
     {
         var cubeController = item.Value;
             

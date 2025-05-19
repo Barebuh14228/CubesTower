@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace DragAndDrop
 {
-    public class EllipseDropZone : DropZoneWithSubscriber<DraggingCube>
+    public class EllipseDropZone : DropZone
     {
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private float _ellipseScalingStep = 0.01f;
         
         private EllipseUtils.EllipseParams _boundingEllipse;
         
-        protected override bool CanDropItem(DraggingCube draggingItem)
+        public override bool CanDrop(DraggingItem draggingItem)
         {
             var worldCornerPoints = draggingItem.RectTransform.GetWorldCornersArray();
 

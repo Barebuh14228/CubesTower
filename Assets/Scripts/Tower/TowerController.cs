@@ -29,7 +29,7 @@ namespace Tower
             _bottomY = new (() => _rectTransform.GetWorldCornersArray().First().y);
         }
         
-        public override void NotifyOnDrop(DraggingCube item)
+        protected override void NotifyOnDrop(DraggingCube item)
         {
             var cube = item.Value;
             
@@ -73,20 +73,15 @@ namespace Tower
             _sequence.OnComplete(() =>
             {
                 UnblockTowerCubesDragging();
-                DropCube(cube);
+                var cubeRectTransform = cube.RectTransform;
+                cubeRectTransform.SetParent(_rectTransform,true);
+                _towerModel.AddCube(cube);
+                RecalculateBoundaries();
+                _onCubeDropped?.Invoke();
+                _gameManager.SaveState();
                 cube.DragEventsProvider.ListenEvents();
             });
             _sequence.Play();
-        }
-
-        public void DropCube(CubeController cubeController)
-        {
-            var cubeRectTransform = cubeController.RectTransform;
-            cubeRectTransform.SetParent(_rectTransform,true);
-            _towerModel.AddCube(cubeController);
-            RecalculateBoundaries();
-            _onCubeDropped?.Invoke();
-            _gameManager.SaveState();
         }
         
         public void OnCubeDragged(CubeController cubeController)

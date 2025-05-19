@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace DragAndDrop
 {
-    public class RectDropZone : DropZoneWithSubscriber<DraggingCube>
+    public class RectDropZone : DropZone
     {
         [SerializeField] private RectTransform _rectTransform;
 
-        protected override bool CanDropItem(DraggingCube draggingItem)
+        public override bool CanDrop(DraggingItem draggingItem)
         {
             return _rectTransform.ContainRect(draggingItem.RectTransform);
         }
