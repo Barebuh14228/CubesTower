@@ -490,7 +490,7 @@ MonoBehaviour:
   _towerController: {fileID: 65334475}
   _cubesSpawner: {fileID: 377002670}
   _draggingController: {fileID: 244817368}
-  _cubeCreator: {fileID: 1780871544}
+  _cubesPool: {fileID: 1780871544}
 --- !u!1 &156865015
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnContainerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
   _defaultDragTarget: {fileID: 945802869}
-  _cubeCreator: {fileID: 1780871544}
+  _cubesPool: {fileID: 1780871544}
 --- !u!1 &450613558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,9 +1958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4031c1967b2e4331add58d061b1a0d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubeCreator: {fileID: 1780871544}
   _gameManager: {fileID: 123243860}
-  _draggingController: {fileID: 244817368}
 --- !u!4 &1470632775
 Transform:
   m_ObjectHideFlags: 0
@@ -2135,7 +2133,7 @@ GameObject:
   - component: {fileID: 1780871543}
   - component: {fileID: 1780871544}
   m_Layer: 0
-  m_Name: Cube Creator
+  m_Name: Cubes Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

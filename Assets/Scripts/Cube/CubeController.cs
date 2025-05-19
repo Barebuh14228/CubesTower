@@ -1,8 +1,11 @@
+using System;
+using DG.Tweening;
 using DragAndDrop;
 using DragEventsUtils;
 using Settings;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Cube
@@ -10,7 +13,8 @@ namespace Cube
     public class CubeController : MonoBehaviour
     {
         [SerializeField] private CubeModel _cubeModel;
-        [SerializeField] private CubeView _cubeView;
+        [SerializeField] private Image _image;
+        [SerializeField] private GameObject _explosionAnimObject;
         [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
         [SerializeField] private DraggingCube _draggingCube;
@@ -23,11 +27,12 @@ namespace Cube
         public DragEventsProvider DragEventsProvider => _dragEventsProvider;
         public CubeDragSubscriber DefaultDragTarget => _cubeDragSubscriber;
         public RectTransform RectTransform => _draggingCube.RectTransform;
+        public string Id { get; private set; }
 
         public void Setup(CubeSettings cubeSettings)
         {
             _cubeModel.Setup(cubeSettings);
-            _cubeView.SetSprite(_cubeModel.CubeSprite);
+            _image.sprite = _cubeModel.CubeSprite;
         }
         
         public void OnDestroyAnimationComplete()
@@ -38,6 +43,7 @@ namespace Cube
         public void Drag()
         {
             _gameManager.DragCube(this);
+            RectTransform.localScale = Vector3.one;
         }
         
         public void Drop()
@@ -48,6 +54,20 @@ namespace Cube
         public void DestroyCube()
         {
             _onDestroyEvent?.Invoke();
+        }
+
+        public void ResetState()
+        {
+            _image.color = Color.white;
+            _explosionAnimObject.SetActive(false);
+            transform.eulerAngles = Vector3.zero;
+            transform.DOKill();
+            _dragEventsProvider.ListenEvents();
+        }
+
+        public void GenerateId()
+        {
+            Id = Guid.NewGuid().ToString();
         }
     }
 }

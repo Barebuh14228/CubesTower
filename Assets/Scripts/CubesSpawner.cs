@@ -6,7 +6,7 @@ public class CubesSpawner : MonoBehaviour
 {
     [SerializeField] private CubeSpawnContainer _spawnContainerPrefab;
     [SerializeField] private DragEventsSubscriber _defaultDragTarget;
-    [SerializeField] private CubeCreator _cubeCreator;
+    [SerializeField] private CubesPool _cubesPool;
 
     private CubeSpawnContainer[] _containers;
     
@@ -37,7 +37,7 @@ public class CubesSpawner : MonoBehaviour
             if (!container.IsEmpty())
                 continue;
 
-            var cube = _cubeCreator.CreateCube(container.GetSettings());
+            var cube = _cubesPool.Get(container.GetSettings());
             
             cube.DragEventsProvider.SetTarget(_defaultDragTarget);
             

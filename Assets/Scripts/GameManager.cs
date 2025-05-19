@@ -3,6 +3,7 @@ using DragAndDrop;
 using Settings;
 using Tower;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
     
 public class GameManager : MonoBehaviour
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TowerController _towerController;
     [SerializeField] private CubesSpawner _cubesSpawner;
     [SerializeField] private DraggingController _draggingController;
-    [SerializeField] private CubeCreator _cubeCreator;
+    [SerializeField] private CubesPool _cubesPool;
     
     [Inject] private CubePresets _cubePresets;
 
@@ -42,6 +43,6 @@ public class GameManager : MonoBehaviour
 
     public void OnCubeDestroyed(CubeController cubeController)
     {
-        _cubeCreator.ReturnToPool(cubeController);
+        _cubesPool.Release(cubeController);
     }
 }

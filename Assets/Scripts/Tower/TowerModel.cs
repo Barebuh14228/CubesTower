@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cube;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Tower
 
         public bool ContainCube(CubeController cube)
         {
-            return _cubesStack.Contains(cube);
+            return _cubesStack.Any(c => cube.Id == c.Id);
         }
 
         public List<CubeController> RemoveCube(CubeController item)
