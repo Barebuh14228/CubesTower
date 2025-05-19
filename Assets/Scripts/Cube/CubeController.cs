@@ -13,23 +13,21 @@ namespace Cube
         [SerializeField] private CubeView _cubeView;
         [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
-        [SerializeField] private DraggingItem _draggingItem;
+        [SerializeField] private DraggingCube _draggingCube;
         [SerializeField] private UnityEvent _onDestroyEvent;
         
         [Inject] private GameManager _gameManager;
         
         public CubeModel Model => _cubeModel;
-        public DraggingItem DraggingItem => _draggingItem;
+        public DraggingItem DraggingCube => _draggingCube;
         public DragEventsProvider DragEventsProvider => _dragEventsProvider;
         public CubeDragSubscriber DefaultDragTarget => _cubeDragSubscriber;
+        public RectTransform RectTransform => _draggingCube.RectTransform;
 
         public void Setup(CubeSettings cubeSettings)
         {
             _cubeModel.Setup(cubeSettings);
             _cubeView.SetSprite(_cubeModel.CubeSprite);
-            _cubeModel.OnDestroyCalledEvent += DestroyCube;
-            _cubeModel.BlockDraggingEvent += _dragEventsProvider.IgnoreEvents;
-            _cubeModel.UnblockDraggingEvent += _dragEventsProvider.ListenEvents;
         }
         
         public void OnDestroyAnimationComplete()

@@ -28,7 +28,7 @@ namespace Tower
             if (_dropSequence != null && _dropSequence.IsActive())
                 return false;
             
-            var cubeRect = cubeController.Model.RectTransform.GetWorldRect();
+            var cubeRect = cubeController.RectTransform.GetWorldRect();
             var cubeWidth = cubeRect.width;
             var offsetX = Random.Range(0, cubeWidth) - cubeWidth / 2;
             
@@ -40,26 +40,26 @@ namespace Tower
 
         public void OnCubeDropped(CubeController cubeController)
         {
-            var cubeRectTransform = cubeController.Model.RectTransform;
+            var cubeRectTransform = cubeController.RectTransform;
             cubeRectTransform.SetParent(_rectTransform,true);
-            _towerModel.AddCube(cubeController.Model);
+            _towerModel.AddCube(cubeController);
             RecalculateBoundaries();
         }
         
         public void OnCubeDragged(CubeController cubeController)
         {
-            if (!_towerModel.ContainCube(cubeController.Model))
+            if (!_towerModel.ContainCube(cubeController))
                 return;
             
             
-            var cubesToMoveDown = _towerModel.RemoveCube(cubeController.Model);
+            var cubesToMoveDown = _towerModel.RemoveCube(cubeController);
             
             cubesToMoveDown.Reverse();
-            cubesToMoveDown.ForEach(c => c.BlockDragging());
+            cubesToMoveDown.ForEach(c => c.DragEventsProvider.IgnoreEvents());
             
             _towerModel.BlockDragging();
             
-            var dropHeight = cubeController.Model.RectTransform.GetWorldRect().height;
+            var dropHeight = cubeController.RectTransform.GetWorldRect().height;
             _dropSequence = DOTween.Sequence();
             
             foreach (var cube in cubesToMoveDown)
@@ -73,12 +73,12 @@ namespace Tower
 
                 if (centerOffset < cubeRect.width / 2)
                 {
-                    _towerModel.AddCube(cube); //todo
+                    _towerModel.AddCube(cube);
                 }
                 else
                 {
                     dropHeight += cubeRect.height;
-                    tween.OnComplete(() => cube.CallDestroy());
+                    tween.OnComplete(() => cube.DestroyCube());
                 }
                 
                 _dropSequence.Append(tween);

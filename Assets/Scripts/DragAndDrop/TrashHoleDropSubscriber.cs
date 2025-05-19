@@ -13,9 +13,9 @@ namespace DragAndDrop
         {
             var cubeController = item.Value;
             
-            var path = new Vector3[]
+            var path = new []
             {
-                cubeController.Model.RectTransform.GetWorldRect().center,
+                cubeController.RectTransform.position,
                 _dropPoint.transform.position + Vector3.up * 350,
             };
         

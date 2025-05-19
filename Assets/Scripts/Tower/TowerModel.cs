@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cube;
@@ -8,14 +7,14 @@ namespace Tower
 {
     public class TowerModel : MonoBehaviour
     {
-        private Stack<CubeModel> _cubesStack = new Stack<CubeModel>();
+        private Stack<CubeController> _cubesStack = new Stack<CubeController>();
         
-        public void AddCube(CubeModel cube)
+        public void AddCube(CubeController cube)
         {
             _cubesStack.Push(cube);
         }
 
-        public bool ContainCube(CubeModel cube)
+        public bool ContainCube(CubeController cube)
         {
             return _cubesStack.Contains(cube);
         }
@@ -27,12 +26,12 @@ namespace Tower
         
         public Vector2[] GetCubesCorners()
         {
-            return _cubesStack.SelectMany(i => i.RectTransform.GetWorldCornersArray()).ToArray();
+            return _cubesStack.SelectMany(cube => cube.RectTransform.GetWorldCornersArray()).ToArray();
         }
 
-        public List<CubeModel> RemoveCube(CubeModel item)
+        public List<CubeController> RemoveCube(CubeController item)
         {
-            var topCubes = new List<CubeModel>();
+            var topCubes = new List<CubeController>();
             
             while (_cubesStack.Count > 0)
             {
@@ -43,33 +42,31 @@ namespace Tower
                 
                 topCubes.Add(removedItem);
             }
-
-            //TopCubeRect = _cubesStack.Any() ? _cubesStack.Peek().RectTransform.GetWorldRect() : default;
-
+            
             return topCubes;
         }
 
         public void BlockDragging()
         {
-            foreach (var cubeModel in _cubesStack)
+            foreach (var cube in _cubesStack)
             {
-                cubeModel.BlockDragging();
+                cube.DragEventsProvider.IgnoreEvents();
             }
         }
 
         public void UnblockDragging()
         {
-            foreach (var cubeModel in _cubesStack)
+            foreach (var cube in _cubesStack)
             {
-                cubeModel.UnblockDragging();
+                cube.DragEventsProvider.ListenEvents();
             }
         }
 
         public Rect GetTopCubeRect()
         {
-            if (_cubesStack.TryPeek(out var cubeModel))
+            if (_cubesStack.TryPeek(out var cube))
             {
-                return cubeModel.RectTransform.GetWorldRect();
+                return cube.RectTransform.GetWorldRect();
             }
 
             return default;

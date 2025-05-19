@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour
     public void DragCube(CubeController cubeController)
     {
         _towerController.OnCubeDragged(cubeController);
-        _draggingController.StartDragging(cubeController.DraggingItem);
+        _draggingController.StartDragging(cubeController.DraggingCube);
     }
     
     public void DropCube(CubeController cubeController)
     {
-        if (!_draggingController.TryDropItem(cubeController.DraggingItem))
+        if (!_draggingController.TryDropItem(cubeController.DraggingCube))
         {
             cubeController.DestroyCube();
         }

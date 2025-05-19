@@ -195,7 +195,7 @@ MonoBehaviour:
   _cubeView: {fileID: 924341056408384543}
   _cubeDragSubscriber: {fileID: 1483046697977457111}
   _dragEventsProvider: {fileID: 6975771663007736407}
-  _draggingItem: {fileID: 2247926750559418796}
+  _draggingCube: {fileID: 2247926750559418796}
   _onDestroyEvent:
     m_PersistentCalls:
       m_Calls:
