@@ -6,6 +6,7 @@ using Save;
 using Settings;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -18,7 +19,7 @@ namespace Cube
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private GameObject _explosionAnimObject;
         [SerializeField] private CubeDragListener _cubeDragListener;
-        [SerializeField] private DragEventsProvider _dragEventsProvider;
+        [SerializeField] private DragEventsRouter _dragEventsRouter;
         [SerializeField] private DraggingCube _draggingCube;
         [SerializeField] private UnityEvent _onDestroyEvent;
         
@@ -26,7 +27,7 @@ namespace Cube
         
         public CubeModel Model => _cubeModel;
         public DraggingItem DraggingCube => _draggingCube;
-        public DragEventsProvider DragEventsProvider => _dragEventsProvider;
+        public DragEventsRouter DragEventsRouter => _dragEventsRouter;
         public CubeDragListener DefaultDragTarget => _cubeDragListener;
         public RectTransform RectTransform => _draggingCube.RectTransform;
         public string Id { get; private set; }
@@ -45,7 +46,7 @@ namespace Cube
         public void DestroyCube()
         {
             _onDestroyEvent?.Invoke();
-            DragEventsProvider.IgnoreEvents();
+            DragEventsRouter.IgnoreEvents();
         }
 
         public void ResetState()
@@ -54,7 +55,7 @@ namespace Cube
             _explosionAnimObject.SetActive(false);
             transform.eulerAngles = Vector3.zero;
             transform.DOKill();
-            _dragEventsProvider.ListenEvents();
+            _dragEventsRouter.ListenEvents();
             _canvasGroup.alpha = 1;
         }
 

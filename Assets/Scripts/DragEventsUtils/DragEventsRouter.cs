@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace DragEventsUtils
 {
-    public class DragEventsProvider : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DragEventsRouter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private DragEventsListener _target;
 

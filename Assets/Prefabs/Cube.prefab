@@ -122,7 +122,7 @@ MonoBehaviour:
   _canvasGroup: {fileID: 823528450929044334}
   _explosionAnimObject: {fileID: 7276949616377623720}
   _cubeDragListener: {fileID: 1483046697977457111}
-  _dragEventsProvider: {fileID: 6975771663007736407}
+  _dragEventsRouter: {fileID: 6975771663007736407}
   _draggingCube: {fileID: 2247926750559418796}
   _onDestroyEvent:
     m_PersistentCalls:

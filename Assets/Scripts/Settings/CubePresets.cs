@@ -20,7 +20,13 @@ namespace Settings
             File.WriteAllText(Application.persistentDataPath + "/SettingsJson.json", json);
             
             Debug.Log($"<color=green>SettingsJson saved to {Application.persistentDataPath}</color>");
+
+            var xxx = new TextsDictionary();
             
+            xxx.Texts = new []{ new TextKeyValuePair() {Key = "key", Value = "value"}};
+            
+            File.WriteAllText(Application.persistentDataPath + "/texts.json", JsonUtility.ToJson(xxx));
+
         }
     }
 

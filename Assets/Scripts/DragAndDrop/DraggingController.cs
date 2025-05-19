@@ -22,10 +22,21 @@ namespace DragAndDrop
 
         public void DropItem(DraggingItem draggingItem)
         {
+            var dropped = false;
+            
             foreach (var dropZone in _dropZones)
             {
-                if (dropZone.CanDrop(draggingItem))
-                    dropZone.Drop(draggingItem);
+                if (!dropZone.CanDrop(draggingItem)) 
+                    continue;
+                
+                dropZone.Drop(draggingItem);
+                dropped = true;
+                break;
+            }
+
+            if (!dropped)
+            {
+                draggingItem.NotifyDropFailed();
             }
             
             foreach (var subscriber in _dropSubscribers)

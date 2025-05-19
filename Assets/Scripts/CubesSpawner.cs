@@ -44,7 +44,7 @@ public class CubesSpawner : DropSubscriber<DraggingCube>
 
             var cube = _cubesPool.Get(container.GetSettings());
             
-            cube.DragEventsProvider.SetTarget(_defaultDragTarget);
+            cube.DragEventsRouter.SetTarget(_defaultDragTarget);
             
             container.PlayAppearAnimation();
             container.SetCube(cube);

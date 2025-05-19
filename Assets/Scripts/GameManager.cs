@@ -6,17 +6,18 @@ using Save;
 using Settings;
 using Tower;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
     
 public class GameManager : MonoBehaviour
 {
-    [Header("JSON Usage")]
-    [SerializeField] private TextAsset _json;
+    [Header("Settings JSON Usage")]
+    [SerializeField] private TextAsset _settingsJson;
     [SerializeField] private bool _useJSONPresets;
     [Space]
+    [SerializeField] private TextAsset _textsJson;
     [SerializeField] private TowerController _towerController;
     [SerializeField] private CubesSpawner _cubesSpawner;
-    [SerializeField] private DraggingController _draggingController;
     [SerializeField] private CubesPool _cubesPool;
     
     [Inject] private CubePresets _cubePresets;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         TryLoadSave();
         CreateSpawners();
+        TextProvider.Init(_textsJson.text);
     }
 
     private void TryLoadSave()
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour
         foreach (var cubeSave in saveObject.Cubes)
         {
             var cube = _cubesPool.Get();
-            cube.DragEventsProvider.SetTarget(cube.DefaultDragTarget);
+            cube.DragEventsRouter.SetTarget(cube.DefaultDragTarget);
             cube.Restore(cubeSave);
             cube.transform.position = cubeSave.Position;
             cube.transform.SetParent(_towerController.transform, true);
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
         
         if (_useJSONPresets)
         {
-            var arrayWrapper = JsonUtility.FromJson<CubeSettingsArrayWrapper>(_json.text);
+            var arrayWrapper = JsonUtility.FromJson<CubeSettingsArrayWrapper>(_settingsJson.text);
             presets = arrayWrapper.Presets;
         }
         

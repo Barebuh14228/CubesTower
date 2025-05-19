@@ -7,6 +7,8 @@ namespace DragAndDrop
         [SerializeField] private RectTransform _rectTransform;
 
         public RectTransform RectTransform => _rectTransform;
+        
+        public abstract void NotifyDropFailed();
     }
     
     public abstract class DraggingItem<TItem> : DraggingItem

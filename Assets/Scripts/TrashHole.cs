@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using DG.Tweening;
 using DragAndDrop;
 using UnityEngine;
@@ -27,7 +28,9 @@ public class TrashHole : MonoBehaviour
             .DORotate(new Vector3(0, 0, 720), 1.5f, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Restart)
             .SetLink(cubeController.gameObject);
-
+        
+        UITextLogger.Instance.LogText(TextProvider.Get("fall_in_hole"));
+        
         sequence
             .OnStart(() => _onDropStart?.Invoke())
             .Append(cubeController.transform.DOPath(path, 1f, PathType.CatmullRom).SetEase(Ease.InQuad))

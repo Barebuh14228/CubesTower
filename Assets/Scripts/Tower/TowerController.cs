@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Cube;
+using DefaultNamespace;
 using DG.Tweening;
 using DragAndDrop;
 using UnityEngine;
@@ -29,13 +30,14 @@ namespace Tower
             _bottomY = new (() => _rectTransform.GetWorldCornersArray().First().y);
         }
         
-        public void OnCubeDroped(DraggingCube item)
+        public void OnCubeDropped(DraggingCube item)
         {
             var cube = item.Value;
             
             if (_sequence != null && _sequence.IsActive())
             {
                 cube.DestroyCube();
+                UITextLogger.Instance.LogText(TextProvider.Get("explode_miss"));
                 return;
             }
             
@@ -54,6 +56,7 @@ namespace Tower
             if (!isBounds)
             {
                 cube.DestroyCube();
+                UITextLogger.Instance.LogText(TextProvider.Get("explode_no_space"));
                 return;
             }
             
@@ -66,12 +69,23 @@ namespace Tower
                 finalPositionRect.center
             };
             
-            cube.DragEventsProvider.IgnoreEvents();
+            cube.DragEventsRouter.IgnoreEvents();
 
+            if (haveCubes)
+            {
+                UITextLogger.Instance.LogText(TextProvider.Get("set_at_top"));
+            }
+            else
+            {
+                UITextLogger.Instance.LogText(TextProvider.Get("set_at_bottom"));
+            }
+            
             _sequence.OnStart(() => BlockTowerCubesDragging());
             _sequence.Append(cube.transform.DOPath(points, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
             _sequence.OnComplete(() =>
             {
+                UITextLogger.Instance.LogText(TextProvider.Get("set"));
+                
                 UnblockTowerCubesDragging();
                 var cubeRectTransform = cube.RectTransform;
                 cubeRectTransform.SetParent(_rectTransform,true);
@@ -79,7 +93,7 @@ namespace Tower
                 RecalculateBoundaries();
                 _onCubeDropped?.Invoke();
                 _gameManager.SaveState();
-                cube.DragEventsProvider.ListenEvents();
+                cube.DragEventsRouter.ListenEvents();
             });
             _sequence.Play();
         }
@@ -94,6 +108,8 @@ namespace Tower
             if (!_towerModel.ContainCube(cubeController))
                 return;
             
+            UITextLogger.Instance.LogText(TextProvider.Get("left_the_tower"));
+            
             var cubesToMoveDown = _towerModel.RemoveCube(cubeController);
             
             cubesToMoveDown.Reverse();
@@ -106,7 +122,7 @@ namespace Tower
             
             foreach (var cube in cubesToMoveDown)
             {
-                cube.DragEventsProvider.IgnoreEvents();
+                cube.DragEventsRouter.IgnoreEvents();
                 
                 var haveCubes = _towerModel.Cubes.Any();
                 var topCubeRect = haveCubes
@@ -126,7 +142,11 @@ namespace Tower
                 else
                 {
                     dropHeight += cubeRect.height;
-                    tween.OnComplete(() => cube.DestroyCube());
+                    tween.OnComplete(() =>
+                    {
+                        cube.DestroyCube();
+                        UITextLogger.Instance.LogText(TextProvider.Get("explode_center_miss", centerOffset, cubeRect.width / 2));
+                    });
                 }
                 
                 _sequence.Append(tween);
@@ -172,7 +192,7 @@ namespace Tower
         {
             foreach (var cube in _towerModel.Cubes)
             {
-                cube.DragEventsProvider.IgnoreEvents();
+                cube.DragEventsRouter.IgnoreEvents();
             }
         }
         
@@ -180,7 +200,7 @@ namespace Tower
         {
             foreach (var cube in _towerModel.Cubes)
             {
-                cube.DragEventsProvider.ListenEvents();
+                cube.DragEventsRouter.ListenEvents();
             }
         }
     }

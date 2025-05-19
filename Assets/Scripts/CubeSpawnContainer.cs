@@ -1,5 +1,6 @@
 using System;
 using Cube;
+using DefaultNamespace;
 using DG.Tweening;
 using DragAndDrop;
 using DragEventsUtils;
@@ -54,7 +55,7 @@ public class CubeSpawnContainer : DragSubscriber<DraggingCube>
     {
         _cubeController = cubeController;
         _cubeController.transform.SetParent(transform, false);
-        _cubeController.DragEventsProvider.SetTarget(_dragTarget);
+        _cubeController.DragEventsRouter.SetTarget(_dragTarget);
         
         if (rebuildLayout)
         {
@@ -64,7 +65,9 @@ public class CubeSpawnContainer : DragSubscriber<DraggingCube>
     
     private void ReleaseCube()
     {
-        _cubeController.DragEventsProvider.SetTarget(_cubeController.DefaultDragTarget);
+        UITextLogger.Instance.LogText(TextProvider.Get("container_press"));
+        
+        _cubeController.DragEventsRouter.SetTarget(_cubeController.DefaultDragTarget);
     }
     
     public void PlayAppearAnimation()
@@ -79,11 +82,13 @@ public class CubeSpawnContainer : DragSubscriber<DraggingCube>
         
         _cubeController.RectTransform.localScale = Vector3.one;
         _cubeController = null;
+        
+        UITextLogger.Instance.LogText(TextProvider.Get("release"));
     }
 
     public void OnPointerPush()
     {
-        _cubeController?.DragEventsProvider.SetTarget(_dragTarget);
+        _cubeController?.DragEventsRouter.SetTarget(_dragTarget);
     }
 
     public void PlayPushAnimForward()
