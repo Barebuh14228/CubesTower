@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 65334475}
         m_TargetAssemblyTypeName: Tower.TowerController, Assembly-CSharp
-        m_MethodName: OnCubeDropped
+        m_MethodName: DropCube
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

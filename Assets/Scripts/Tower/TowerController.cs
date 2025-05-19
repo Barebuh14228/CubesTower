@@ -33,17 +33,16 @@ namespace Tower
             var cubeRect = cubeController.RectTransform.GetWorldRect();
             var cubeWidth = cubeRect.width;
             var offsetX = haveCubes ? Random.Range(0, cubeWidth) - cubeWidth / 2 : 0f;
+            var dropPosition = GetDropPosition(cubeRect);
             
             finalPositionRect = cubeRect;
-            
-            var dropPosition = GetDropPosition(finalPositionRect);
-            
             finalPositionRect.position = dropPosition + Vector2.right * offsetX;
             
-            return _rectTransform.ContainsScreenPoints(finalPositionRect.GetCorners());
+            return finalPositionRect.GetCorners()
+                .Any(c => RectTransformUtility.RectangleContainsScreenPoint(_rectTransform, c));
         }
 
-        public void OnCubeDropped(CubeController cubeController)
+        public void DropCube(CubeController cubeController)
         {
             var cubeRectTransform = cubeController.RectTransform;
             cubeRectTransform.SetParent(_rectTransform,true);
@@ -64,12 +63,15 @@ namespace Tower
             BlockTowerCubesDragging();
             
             var dropHeight = cubeController.RectTransform.GetWorldRect().height;
+            
             _dropSequence = DOTween.Sequence();
             
             foreach (var cube in cubesToMoveDown)
             {
                 var haveCubes = _towerModel.Cubes.Any();
-                var topCubeRect = haveCubes ? _towerModel.Cubes.First().RectTransform.GetWorldRect() : default;
+                var topCubeRect = haveCubes
+                    ? _towerModel.Cubes.First().RectTransform.GetWorldRect() 
+                    : default;
                 var cubeRect = cube.RectTransform.GetWorldRect();
                 var dropPosition = cubeRect.center + dropHeight * Vector2.down;
                 var centerOffset = haveCubes ? Mathf.Abs(topCubeRect.center.x - cubeRect.center.x) : 0f;
@@ -87,7 +89,6 @@ namespace Tower
                 }
                 
                 _dropSequence.Append(tween);
-                _dropSequence.AppendInterval(0.05f);
             }
             
             _dropSequence.OnComplete(() =>
@@ -99,7 +100,9 @@ namespace Tower
         
         private void RecalculateBoundaries()
         {
-            var points = _towerModel.Cubes.SelectMany(c => c.RectTransform.GetWorldCornersArray()).ToArray();
+            var points = _towerModel.Cubes
+                .SelectMany(c => c.RectTransform.GetWorldCornersArray())
+                .ToArray();
             
             _dropZone.RecalculateBoundaries(points);
         }
@@ -107,7 +110,9 @@ namespace Tower
         private Vector2 GetDropPosition(Rect cubeRect)
         {
             var haveCubes = _towerModel.Cubes.Any();
-            var topCubeRect = haveCubes ? _towerModel.Cubes.First().RectTransform.GetWorldRect() : default;
+            var topCubeRect = haveCubes 
+                ? _towerModel.Cubes.First().RectTransform.GetWorldRect() 
+                : default;
             
             var towerCenter = !haveCubes
                 ? cubeRect.center.x
