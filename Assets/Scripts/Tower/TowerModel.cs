@@ -25,7 +25,7 @@ namespace Tower
             return _cubesStack.Count > 0;
         }
         
-        public Vector3[] GetCubesCorners()
+        public Vector2[] GetCubesCorners()
         {
             return _cubesStack.SelectMany(i => i.RectTransform.GetWorldCornersArray()).ToArray();
         }

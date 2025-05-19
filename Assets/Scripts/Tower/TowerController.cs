@@ -35,7 +35,7 @@ namespace Tower
             finalPositionRect = cubeRect;
             finalPositionRect.position = GetDropPosition(finalPositionRect) + Vector2.right * offsetX;
             
-            return _rectTransform.ContainRect(finalPositionRect); //todo меня смущает что я второй раз проверяю, с другой стороны как еще?
+            return _rectTransform.ContainsScreenPoints(finalPositionRect.GetCorners());
         }
 
         public void OnCubeDropped(CubeController cubeController)

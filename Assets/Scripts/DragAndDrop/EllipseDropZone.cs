@@ -13,13 +13,15 @@ namespace DragAndDrop
         
         protected override bool CanDropItem(DraggingCube draggingItem)
         {
+            var worldCornerPoints = draggingItem.RectTransform.GetWorldCornersArray();
+
             if (!_boundingEllipse.IsExist())
-                return _rectTransform.ContainRect(draggingItem.GetWorldRect());
+                return _rectTransform.ContainsScreenPoints(worldCornerPoints);
             
-            return draggingItem.GetWorldRect().GetCorners().Any(IsPointInBoundaries);
+            return worldCornerPoints.Any(IsPointInBoundaries);
         }
         
-        public void RecalculateBoundaries(Vector3[] points)
+        public void RecalculateBoundaries(Vector2[] points)
         {
             if (points.Length == 0)
             {
@@ -30,7 +32,7 @@ namespace DragAndDrop
             _boundingEllipse = EllipseUtils.CalculateBoundingEllipse(points, _ellipseScalingStep);
         }
         
-        private bool IsPointInBoundaries(Vector3 point)
+        private bool IsPointInBoundaries(Vector2 point)
         {
             return _boundingEllipse.ContainsPoint(point);
         }

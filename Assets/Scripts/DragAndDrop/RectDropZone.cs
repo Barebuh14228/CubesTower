@@ -8,7 +8,7 @@ namespace DragAndDrop
 
         protected override bool CanDropItem(DraggingCube draggingItem)
         {
-            return _rectTransform.ContainRect(draggingItem.GetWorldRect());
+            return _rectTransform.ContainRect(draggingItem.RectTransform);
         }
     }
 }

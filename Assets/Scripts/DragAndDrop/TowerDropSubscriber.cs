@@ -24,8 +24,6 @@ namespace DragAndDrop
                 return;
             }
             
-            var cubeWorldRect = item.GetWorldRect();
-            
             if (!_towerController.CanDropCube(item.Value, out var finalPositionRect))
             {
                 cubeController.DestroyCube();
@@ -36,7 +34,7 @@ namespace DragAndDrop
             
             var points = new Vector3[]
             {
-                cubeWorldRect.center,
+                item.RectTransform.position,
                 finalPositionRect.center + Vector2.up * 70,
                 finalPositionRect.center
             };

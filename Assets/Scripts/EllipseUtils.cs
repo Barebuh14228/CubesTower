@@ -5,7 +5,7 @@ using UnityEngine;
 public static class EllipseUtils
 {
     //Метод, который я добавил сам. Увеличивает эллипс до тех пор, пока он не будет включать в себя все точки
-    public static EllipseParams CalculateBoundingEllipse(Vector3[] points, float scalingFactor)
+    public static EllipseParams CalculateBoundingEllipse(Vector2[] points, float scalingFactor)
     {
         if (points == null || points.Length == 0)
             throw new System.ArgumentException("Points array cannot be null or empty");
@@ -30,28 +30,25 @@ public static class EllipseUtils
         return realParameters;
     }
 
-    private static EllipseParams CalculateApproximateParameters(Vector3[] points)
+    private static EllipseParams CalculateApproximateParameters(Vector2[] screenPoints)
     {
-        // Игнорируем Z-координату и конвертируем в Vector2
-        Vector2[] points2D = points.Select(p => new Vector2(p.x, p.y)).ToArray();
-
         // 1. Находим центр масс (центр эллипса)
         Vector2 center = Vector2.zero;
-        foreach (Vector2 p in points2D) center += p;
-        center /= points2D.Length;
+        foreach (Vector2 p in screenPoints) center += p;
+        center /= screenPoints.Length;
 
         // 2. Вычисляем ковариационную матрицу для определения ориентации
         float a = 0, b = 0, c = 0;
-        foreach (Vector2 p in points2D)
+        foreach (Vector2 p in screenPoints)
         {
             Vector2 delta = p - center;
             a += delta.x * delta.x;
             b += delta.x * delta.y;
             c += delta.y * delta.y;
         }
-        a /= points2D.Length;
-        b /= points2D.Length;
-        c /= points2D.Length;
+        a /= screenPoints.Length;
+        b /= screenPoints.Length;
+        c /= screenPoints.Length;
 
         // 3. Находим собственные значения и векторы (оси эллипса)
         float discriminant = Mathf.Sqrt((a - c) * (a - c) + 4 * b * b);
@@ -74,10 +71,10 @@ public static class EllipseUtils
         };
     }
     
-    public static bool ContainsPoint(this EllipseParams ellipse, Vector3 point)
+    public static bool ContainsPoint(this EllipseParams ellipse, Vector2 point)
     {
         // Переводим точку в локальные координаты эллипса (учитываем центр и поворот)
-        Vector2 centeredPoint = new Vector2(point.x, point.y) - ellipse.Center;
+        Vector2 centeredPoint = point - ellipse.Center;
         
         // Если эллипс не повернут, просто проверяем стандартное уравнение
         if (Mathf.Approximately(ellipse.RotationAngle, 0f))
