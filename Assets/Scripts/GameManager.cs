@@ -3,7 +3,6 @@ using DragAndDrop;
 using Settings;
 using Tower;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
     
 public class GameManager : MonoBehaviour
@@ -13,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DraggingController _draggingController;
     
     [Inject] private CubePresets _cubePresets;
-    [Inject] private UIElementsProvider _uiController;
 
     private void Start()
     {

@@ -19,7 +19,6 @@ namespace Cube
         [SerializeField] private UnityEvent _onDestroyEvent;
         
         [Inject] private GameManager _gameManager;
-        [Inject] private UIElementsProvider _uiController;
         [Inject] private CubeCreator _cubeCreator;
         [Inject] private DraggingController _draggingController;
         
