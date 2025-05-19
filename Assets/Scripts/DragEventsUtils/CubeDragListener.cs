@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace DragEventsUtils
 {
     [RequireComponent(typeof(RectTransform))]
-    public class CubeDragSubscriber : DragEventsSubscriber
+    public class CubeDragListener : DragEventsListener
     {
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private UnityEvent OnBeginDragEvent;

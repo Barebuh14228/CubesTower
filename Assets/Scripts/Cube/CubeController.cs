@@ -17,7 +17,7 @@ namespace Cube
         [SerializeField] private Image _image;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private GameObject _explosionAnimObject;
-        [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
+        [SerializeField] private CubeDragListener _cubeDragListener;
         [SerializeField] private DragEventsProvider _dragEventsProvider;
         [SerializeField] private DraggingCube _draggingCube;
         [SerializeField] private UnityEvent _onDestroyEvent;
@@ -27,7 +27,7 @@ namespace Cube
         public CubeModel Model => _cubeModel;
         public DraggingItem DraggingCube => _draggingCube;
         public DragEventsProvider DragEventsProvider => _dragEventsProvider;
-        public CubeDragSubscriber DefaultDragTarget => _cubeDragSubscriber;
+        public CubeDragListener DefaultDragTarget => _cubeDragListener;
         public RectTransform RectTransform => _draggingCube.RectTransform;
         public string Id { get; private set; }
 

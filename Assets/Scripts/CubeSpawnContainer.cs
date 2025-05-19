@@ -11,7 +11,7 @@ public class CubeSpawnContainer : MonoBehaviour
     
     private CubeSettings _settings;
     private CubeController _cubeController;
-    private DragEventsSubscriber _dragTarget;
+    private DragEventsListener _dragTarget;
 
     // используется ленивая инициализация чтобы анимация не проигрывалась на старте
     // в качестве альтернативы мог бы выставить флаг defaultAutoPlay у класса DOTween в false,
@@ -34,7 +34,7 @@ public class CubeSpawnContainer : MonoBehaviour
         _settings = settings;
     }
 
-    public void SetDragTarget(DragEventsSubscriber dragTarget)
+    public void SetDragTarget(DragEventsListener dragTarget)
     {
         _dragTarget = dragTarget;
     }

@@ -5,7 +5,7 @@ namespace DragEventsUtils
 {
     public class DragEventsProvider : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        private DragEventsSubscriber _target;
+        private DragEventsListener _target;
 
         private bool _ignoreEvents;
         
@@ -14,7 +14,7 @@ namespace DragEventsUtils
         // перемещение не вызывая OnBeginDrag, что в свою очередь приводит к ошибкам
         private bool _dragBegin;
         
-        public void SetTarget(DragEventsSubscriber target)
+        public void SetTarget(DragEventsListener target)
         {
             _target = target;
         }

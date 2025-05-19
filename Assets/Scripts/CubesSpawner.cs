@@ -5,7 +5,7 @@ using UnityEngine;
 public class CubesSpawner : MonoBehaviour
 {
     [SerializeField] private CubeSpawnContainer _spawnContainerPrefab;
-    [SerializeField] private DragEventsSubscriber _defaultDragTarget;
+    [SerializeField] private DragEventsListener _defaultDragTarget;
     [SerializeField] private CubesPool _cubesPool;
 
     private CubeSpawnContainer[] _containers;

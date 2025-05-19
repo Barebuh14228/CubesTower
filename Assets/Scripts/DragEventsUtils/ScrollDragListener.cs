@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace DragEventsUtils
 {
     [RequireComponent(typeof(ScrollRect))]
-    public class ScrollDragSubscriber : DragEventsSubscriber
+    public class ScrollDragListener : DragEventsListener
     {
         private ScrollRect _scrollRect;
         

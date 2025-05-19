@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b8847e61d943e4ba886e13b407f674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _subscriber: {fileID: 65334476}
+  _subscriber: {fileID: 0}
   _rectTransform: {fileID: 65334472}
   _ellipseScalingStep: 0.2
 --- !u!82 &65334478
