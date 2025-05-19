@@ -32,7 +32,7 @@ namespace DefaultNamespace
             _sequence = DOTween.Sequence();
 
             _sequence.Append(_text.transform.DOPunchScale(Vector3.one * 0.05f, 0.3f, 1));
-            _sequence.AppendInterval(2f);
+            _sequence.AppendInterval(text.Length / 10f * 1f); //по секунде на 10 символов
             _sequence.Append(_canvasGroup.DOFade(0, 1f));
         }
     }
