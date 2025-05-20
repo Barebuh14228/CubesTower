@@ -9,7 +9,7 @@ public class TrashHole : MonoBehaviour
     [SerializeField] private Transform _topPoint;
     [SerializeField] private Transform _bottomPoint;
     [SerializeField] private Transform _dropMask;
-    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private CubesPool _cubesPool;
     [SerializeField] private UnityEvent _onDropStart;
         
     public void OnCubeDropped(DraggingCube item)
@@ -41,7 +41,7 @@ public class TrashHole : MonoBehaviour
             .Append(cubeController.transform.DOMove(_bottomPoint.transform.position, 0.2f).SetEase(Ease.Linear))
             .OnKill(() =>
             {
-                _gameManager.OnCubeDestroyed(cubeController);
+                _cubesPool.Release(cubeController);
             });
     }
 }

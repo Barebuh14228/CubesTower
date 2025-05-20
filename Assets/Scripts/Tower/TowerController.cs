@@ -188,7 +188,7 @@ namespace Tower
             return new Vector2(minX, minY);
         }
         
-        public void BlockTowerCubesDragging()
+        private void BlockTowerCubesDragging()
         {
             foreach (var cube in _towerModel.Cubes)
             {
@@ -196,7 +196,7 @@ namespace Tower
             }
         }
         
-        public void UnblockTowerCubesDragging()
+        private void UnblockTowerCubesDragging()
         {
             foreach (var cube in _towerModel.Cubes)
             {

@@ -70,11 +70,6 @@ public class GameManager : MonoBehaviour
         _cubesSpawner.Setup(presets);
     }
 
-    public void OnCubeDestroyed(CubeController cubeController)
-    {
-        _cubesPool.Release(cubeController);
-    }
-
     public void SaveState()
     {
         var save = _towerController.TowerModel.GetSave();

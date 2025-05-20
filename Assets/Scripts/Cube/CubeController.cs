@@ -23,10 +23,9 @@ namespace Cube
         [SerializeField] private DraggingCube _draggingCube;
         [SerializeField] private UnityEvent _onDestroyEvent;
         
-        [Inject] private GameManager _gameManager;
+        [Inject] private CubesPool _cubesPool;
         
         public CubeModel Model => _cubeModel;
-        public DraggingItem DraggingCube => _draggingCube;
         public DragEventsRouter DragEventsRouter => _dragEventsRouter;
         public CubeDragListener DefaultDragTarget => _cubeDragListener;
         public RectTransform RectTransform => _draggingCube.RectTransform;
@@ -40,7 +39,7 @@ namespace Cube
         
         public void OnDestroyAnimationComplete()
         {
-            _gameManager.OnCubeDestroyed(this);
+            _cubesPool.Release(this);
         }
         
         public void DestroyCube()

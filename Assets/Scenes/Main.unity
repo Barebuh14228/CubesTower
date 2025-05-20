@@ -1869,7 +1869,7 @@ MonoBehaviour:
   _topPoint: {fileID: 987888454}
   _bottomPoint: {fileID: 313027769}
   _dropMask: {fileID: 450613559}
-  _gameManager: {fileID: 123243860}
+  _cubesPool: {fileID: 1780871544}
   _onDropStart:
     m_PersistentCalls:
       m_Calls:
@@ -2324,6 +2324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 123243860}
   _draggingController: {fileID: 244817368}
+  _cubesPool: {fileID: 1780871544}
 --- !u!4 &1470632775
 Transform:
   m_ObjectHideFlags: 0
