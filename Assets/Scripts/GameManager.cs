@@ -31,20 +31,17 @@ public class GameManager : MonoBehaviour
 
     private void TryLoadSave()
     {
-        if (!File.Exists(Application.persistentDataPath + "/save.json"))
+        if (!SaveUtils.TryLoad(out var saveData))
             return;
 
-        StartCoroutine(WaitForRebuild());
+        StartCoroutine(WaitForRebuild(saveData));
     }
 
-    private IEnumerator WaitForRebuild()
+    private IEnumerator WaitForRebuild(TowerSave saveData)
     {   
         yield return new WaitForEndOfFrame();
         
-        var saveString = File.ReadAllText(Application.persistentDataPath + "/save.json");
-        var saveObject = JsonUtility.FromJson<TowerSave>(saveString);
-        
-        foreach (var cubeSave in saveObject.Cubes)
+        foreach (var cubeSave in saveData.Cubes)
         {
             var cube = _cubesPool.Get();
             cube.DragEventsRouter.SetTarget(cube.DefaultDragTarget);
@@ -74,8 +71,6 @@ public class GameManager : MonoBehaviour
     {
         var save = _towerController.TowerModel.GetSave();
         
-        var json = JsonUtility.ToJson(save);
-            
-        File.WriteAllText(Application.persistentDataPath + "/save.json", json);
+        SaveUtils.Save(save);
     }
 }
