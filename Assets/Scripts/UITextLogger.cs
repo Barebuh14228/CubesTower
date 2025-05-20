@@ -27,6 +27,7 @@ namespace DefaultNamespace
             if (_sequence != null && _sequence.IsActive())
             {
                 _sequence.Kill();
+                _text.transform.localScale = Vector3.one;
             }
 
             _sequence = DOTween.Sequence();

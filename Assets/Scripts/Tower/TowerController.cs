@@ -23,6 +23,8 @@ namespace Tower
         private Lazy<float> _bottomY;
         private Sequence _sequence;
 
+        private bool HaveCubes => _towerModel.Cubes.Any();
+        
         public TowerModel TowerModel => _towerModel;
         
         private void Start()
@@ -41,107 +43,103 @@ namespace Tower
                 return;
             }
             
-            var haveCubes = _towerModel.Cubes.Any();
             var cubeRect = cube.RectTransform.GetWorldRect();
-            var cubeWidth = cubeRect.width;
-            var offsetX = haveCubes ? Random.Range(0, cubeWidth) - cubeWidth / 2 : 0f;
-            var dropPosition = GetDropPosition(cubeRect);
+
+            SetRectOnDropPosition(ref cubeRect);
             
-            var finalPositionRect = cubeRect;
-            finalPositionRect.position = dropPosition + Vector2.right * offsetX;
-            
-            var isBounds = finalPositionRect.GetCorners()
+            var inBounds = cubeRect.GetCorners()
                 .Any(c => RectTransformUtility.RectangleContainsScreenPoint(_rectTransform, c));
             
-            if (!isBounds)
+            if (!inBounds)
             {
                 cube.DestroyCube();
                 UITextLogger.Instance.LogText(TextProvider.Get("explode_no_space"));
                 return;
             }
             
-            _sequence = DOTween.Sequence();
-            
-            var points = new Vector3[]
+            var waypoints = new Vector3[]
             {
                 item.RectTransform.position,
-                finalPositionRect.center + Vector2.up * 70,
-                finalPositionRect.center
+                cubeRect.center + Vector2.up * 70,
+                cubeRect.center
             };
             
             cube.DragEventsRouter.IgnoreEvents();
-
-            if (haveCubes)
-            {
-                UITextLogger.Instance.LogText(TextProvider.Get("set_at_top"));
-            }
-            else
-            {
-                UITextLogger.Instance.LogText(TextProvider.Get("set_at_bottom"));
-            }
             
-            _sequence.OnStart(() => BlockTowerCubesDragging());
-            _sequence.Append(cube.transform.DOPath(points, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
-            _sequence.OnComplete(() =>
-            {
-                UITextLogger.Instance.LogText(TextProvider.Get("set"));
-                
-                UnblockTowerCubesDragging();
-                var cubeRectTransform = cube.RectTransform;
-                cubeRectTransform.SetParent(_rectTransform,true);
-                _towerModel.AddCube(cube);
-                RecalculateBoundaries();
-                _onCubeDropped?.Invoke();
-                _gameManager.SaveState();
-                cube.DragEventsRouter.ListenEvents();
-            });
+            _sequence = DOTween.Sequence();
+            _sequence.OnStart(OnDropStart);
+            _sequence.Append(cube.transform.DOPath(waypoints, 0.5f, PathType.CatmullRom, PathMode.Sidescroller2D));
+            _sequence.OnComplete(() => OnDropComplete(cube));
             _sequence.Play();
+        }
+
+        private void OnDropStart()
+        {
+            var uiLoggerText = HaveCubes 
+                ? TextProvider.Get("set_at_top") 
+                : TextProvider.Get("set_at_bottom");
+            
+            UITextLogger.Instance.LogText(uiLoggerText);
+
+            BlockTowerCubesDragging();
+        }
+
+        private void OnDropComplete(CubeController cube)
+        {
+            UITextLogger.Instance.LogText(TextProvider.Get("set"));
+            
+            _towerModel.AddCube(cube);
+            _gameManager.SaveState();
+            
+            cube.RectTransform.SetParent(_rectTransform,true);
+            cube.DragEventsRouter.ListenEvents();
+            
+            RecalculateBoundaries();
+            UnblockTowerCubesDragging();
+            
+            _onCubeDropped?.Invoke();
         }
         
         protected override void NotifyOnDrag(DraggingCube draggingItem)
         {
-            OnCubeDragged(draggingItem.Value);
-        }
-        
-        private void OnCubeDragged(CubeController cubeController)
-        {
-            if (!_towerModel.ContainCube(cubeController))
+            var draggedCube = draggingItem.Value;
+            
+            if (!_towerModel.ContainCube(draggedCube))
                 return;
             
             UITextLogger.Instance.LogText(TextProvider.Get("left_the_tower"));
             
-            var cubesToMoveDown = _towerModel.RemoveCube(cubeController);
+            var cubesToMoveDown = _towerModel.RemoveCube(draggedCube);
             
             cubesToMoveDown.Reverse();
             
-            BlockTowerCubesDragging();
-            
-            var dropHeight = cubeController.RectTransform.GetWorldRect().height;
-            
             _sequence = DOTween.Sequence();
+
+            var fallHeight = draggedCube.RectTransform.GetWorldRect().height;
+            var topCenter = HaveCubes ? GetTopCenterPosition() : default;
             
             foreach (var cube in cubesToMoveDown)
             {
                 cube.DragEventsRouter.IgnoreEvents();
                 
-                var haveCubes = _towerModel.Cubes.Any();
-                var topCubeRect = haveCubes
-                    ? _towerModel.Cubes.First().RectTransform.GetWorldRect() 
-                    : default;
                 var cubeRect = cube.RectTransform.GetWorldRect();
-                var dropPosition = cubeRect.center + dropHeight * Vector2.down;
-                var centerOffset = haveCubes ? Mathf.Abs(topCubeRect.center.x - cubeRect.center.x) : 0f;
+                var centerOffset = HaveCubes //todo
+                    ? Mathf.Abs(topCenter.x - cubeRect.center.x) 
+                    : 0f;
                 
-                var tween = cube.RectTransform.DOMove(dropPosition, 0.2f);
+                cubeRect.position -= Vector2.up * fallHeight;
+                
+                var tween = cube.RectTransform.DOMove(cubeRect.center, 0.2f);
 
                 if (centerOffset < cubeRect.width / 2)
                 {
                     _towerModel.AddCube(cube);
                     tween.OnComplete(() => _onCubeDropped?.Invoke());
+                    topCenter = cubeRect.center;
                 }
                 else
                 {
-                    dropHeight += cubeRect.height;
+                    fallHeight += cubeRect.height;
                     tween.OnComplete(() =>
                     {
                         cube.DestroyCube();
@@ -151,7 +149,8 @@ namespace Tower
                 
                 _sequence.Append(tween);
             }
-            
+
+            _sequence.OnStart(BlockTowerCubesDragging);
             _sequence.OnComplete(() =>
             {
                 RecalculateBoundaries();
@@ -168,24 +167,22 @@ namespace Tower
             _dropZone.RecalculateBoundaries(points);
         }
 
-        private Vector2 GetDropPosition(Rect cubeRect)
+        private void SetRectOnDropPosition(ref Rect cubeRect)
         {
-            var haveCubes = _towerModel.Cubes.Any();
-            var topCubeRect = haveCubes 
-                ? _towerModel.Cubes.First().RectTransform.GetWorldRect() 
-                : default;
+            var cubeWidth = cubeRect.width;
+            var offsetX = HaveCubes ? Random.Range(0, cubeWidth) - cubeWidth / 2 : 0f;
+            var dropPosition = HaveCubes
+                ? GetTopCenterPosition() - new Vector2(cubeWidth / 2, 0)
+                : new Vector2(cubeRect.min.x, _bottomY.Value);
             
-            var towerCenter = !haveCubes
-                ? cubeRect.center.x
-                : topCubeRect.center.x;
-            
-            var minY = !haveCubes
-                ? _bottomY.Value
-                : topCubeRect.max.y;
+            cubeRect.position = dropPosition + new Vector2(offsetX, 0); // получаем финальное состояние Rect после дропа
+        }
 
-            var minX = towerCenter - cubeRect.width / 2;
-            
-            return new Vector2(minX, minY);
+        private Vector2 GetTopCenterPosition()
+        {
+            var topCubeRect = _towerModel.Cubes.First().RectTransform.GetWorldRect();
+
+            return new Vector2(topCubeRect.center.x, topCubeRect.max.y);
         }
         
         private void BlockTowerCubesDragging()
