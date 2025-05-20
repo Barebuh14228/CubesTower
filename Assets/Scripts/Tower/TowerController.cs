@@ -123,7 +123,7 @@ namespace Tower
                 cube.DragEventsRouter.IgnoreEvents();
                 
                 var cubeRect = cube.RectTransform.GetWorldRect();
-                var centerOffset = HaveCubes //todo
+                var centerOffset = HaveCubes
                     ? Mathf.Abs(topCenter.x - cubeRect.center.x) 
                     : 0f;
                 
