@@ -31,6 +31,11 @@ namespace Tower
         {
             _bottomY = new (() => _rectTransform.GetWorldCornersArray().First().y);
         }
+
+        public void RestoreCubes()
+        {
+            
+        }
         
         public void OnCubeDropped(DraggingCube item)
         {
