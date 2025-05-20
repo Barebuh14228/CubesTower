@@ -49,24 +49,5 @@ namespace DragAndDrop
         {
             _dragSubscribers.Add(dragSubscriber);
         }
-        
-        /*public void StartDragging(DraggingItem draggingItem)
-        {
-            draggingItem.transform.SetParent(_draggingParent);
-        }
-        
-        public bool TryDropItem(DraggingItem draggingItem)
-        {
-            foreach (var dropZone in _dropZones)
-            {
-                if (dropZone.CanDrop(draggingItem))
-                {
-                    dropZone.Drop(draggingItem);
-                    return true;
-                }
-            }
-
-            return false;
-        }*/
     }
 }
