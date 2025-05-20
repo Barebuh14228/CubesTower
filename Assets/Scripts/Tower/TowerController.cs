@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cube;
 using DefaultNamespace;
@@ -32,9 +33,38 @@ namespace Tower
             _bottomY = new (() => _rectTransform.GetWorldCornersArray().First().y);
         }
 
-        public void RestoreCubes()
+        public void RestoreCubes(List<CubeController> restoredCubes)
         {
+            _sequence = DOTween.Sequence();
             
+            _sequence.OnStart(BlockTowerCubesDragging);
+            _sequence.OnComplete(() =>
+            {
+                RecalculateBoundaries();
+                UnblockTowerCubesDragging();
+            });
+
+            var dropDelay = 0.2f;
+            var currentTimePosition = 0f;
+            
+            foreach (var cube in restoredCubes)
+            {
+                var position = cube.transform.position;
+                
+                cube.transform.SetParent(transform, true);
+                cube.transform.localScale = Vector3.one;
+                _towerModel.AddCube(cube);
+
+                var path = new[]
+                {
+                    position + Vector3.up * Screen.height,
+                    position
+                };
+                
+                _sequence.Insert(currentTimePosition,cube.transform.DOPath(path, 0.5f).OnComplete(() => _onCubeDropped?.Invoke()));
+
+                currentTimePosition += dropDelay;
+            }
         }
         
         public void OnCubeDropped(DraggingCube item)
