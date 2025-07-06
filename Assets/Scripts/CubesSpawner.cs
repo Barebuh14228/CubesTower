@@ -3,7 +3,7 @@ using DragEventsUtils;
 using Settings;
 using UnityEngine;
 
-public class CubesSpawner : DropSubscriber<DraggingCube>
+public class CubesSpawner : MonoBehaviour
 {
     [SerializeField] private CubeSpawnContainer _spawnContainerPrefab;
     [SerializeField] private DraggingController _draggingController;
@@ -19,7 +19,7 @@ public class CubesSpawner : DropSubscriber<DraggingCube>
         for (int i = 0; i < _containers.Length; i++)
         {
             _containers[i] = CreateSpawner(settingsArray[i]);
-            _draggingController.AddDragSubscriber(_containers[i]);
+            _draggingController.AddDragSubscriber(_containers[i].CubeDragSubscriber);
         }
 
         SpawnCubes();
@@ -51,7 +51,7 @@ public class CubesSpawner : DropSubscriber<DraggingCube>
         }
     }
 
-    protected override void NotifyOnDrop(DraggingCube draggingItem)
+    public void NotifyOnCubeDrop(DraggingCube draggingCube)
     {
         SpawnCubes();
     }

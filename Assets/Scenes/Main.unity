@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 65334477}
   - component: {fileID: 65334474}
   - component: {fileID: 65334475}
+  - component: {fileID: 65334479}
   - component: {fileID: 65334478}
   m_Layer: 5
   m_Name: Tower Parent
@@ -328,6 +329,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &65334479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65334471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdab2d93a869494a8626014af1c891fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDrag:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 65334475}
+        m_TargetAssemblyTypeName: Tower.TowerController, Assembly-CSharp
+        m_MethodName: NotifyOnDrag
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &104783407
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,12 +614,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _draggingParent: {fileID: 1631566525}
   _dragSubscribers:
-  - {fileID: 65334475}
+  - {fileID: 65334479}
   _dropZones:
   - {fileID: 1185654597}
   - {fileID: 65334477}
   _dropSubscribers:
-  - {fileID: 377002670}
+  - {fileID: 377002671}
 --- !u!4 &244817369
 Transform:
   m_ObjectHideFlags: 0
@@ -833,6 +861,7 @@ GameObject:
   - component: {fileID: 377002667}
   - component: {fileID: 377002669}
   - component: {fileID: 377002670}
+  - component: {fileID: 377002671}
   m_Layer: 5
   m_Name: Cubes Spanwer
   m_TagString: Untagged
@@ -969,6 +998,33 @@ MonoBehaviour:
   _draggingController: {fileID: 244817368}
   _defaultDragTarget: {fileID: 945802869}
   _cubesPool: {fileID: 1780871544}
+--- !u!114 &377002671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377002663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3715041f450549b7a14b3fb843af41eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDrop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 377002670}
+        m_TargetAssemblyTypeName: CubesSpawner, Assembly-CSharp
+        m_MethodName: NotifyOnCubeDrop
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &450613558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,7 +2634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebacca2edb94c7e87b0662a3cf022c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultCanvas: {fileID: 788905962}
   _towerController: {fileID: 65334475}
   _cubesPool: {fileID: 1780871544}
 --- !u!1 &2067908686

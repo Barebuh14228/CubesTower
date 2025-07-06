@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace DragAndDrop
@@ -10,8 +11,22 @@ namespace DragAndDrop
     
     public abstract class DropZone<TDraggingItem> : DropZone where TDraggingItem : DraggingItem
     {
-        public sealed override bool CanDrop(DraggingItem item) => CanDrop(item as TDraggingItem);
-        public sealed override void Drop(DraggingItem item) => Drop(item as TDraggingItem);
+        public sealed override bool CanDrop(DraggingItem item)
+        {
+            return item is TDraggingItem draggingItem && CanDrop(draggingItem);
+        }
+
+        public sealed override void Drop(DraggingItem item)
+        {
+            if (item is TDraggingItem draggingItem)
+            {
+                Drop(draggingItem);
+            }
+            else
+            {
+                throw new Exception("Dragging item type is not valid!");
+            }
+        }
 
         protected abstract bool CanDrop(TDraggingItem item);
         protected abstract void Drop(TDraggingItem item);

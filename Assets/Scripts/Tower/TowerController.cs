@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace Tower
 {
-    public class TowerController : DragSubscriber<DraggingCube>
+    public class TowerController : MonoBehaviour
     {
         [SerializeField] private TowerModel _towerModel;
         [SerializeField] private EllipseDropZone _dropZone;
@@ -135,7 +135,7 @@ namespace Tower
             _onCubeDropped?.Invoke();
         }
         
-        protected override void NotifyOnDrag(DraggingCube draggingItem)
+        public void NotifyOnDrag(DraggingCube draggingItem)
         {
             var draggedCube = draggingItem.Value;
             

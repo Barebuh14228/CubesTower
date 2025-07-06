@@ -7,13 +7,16 @@ using DragEventsUtils;
 using Settings;
 using UnityEngine;
 
-public class CubeSpawnContainer : DragSubscriber<DraggingCube>
+public class CubeSpawnContainer : MonoBehaviour
 {
+    [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
     [SerializeField] private LayoutComponentsDisabler _layoutComponentsDisabler;
     
     private CubeSettings _settings;
     private CubeController _cubeController;
     private DragEventsListener _dragTarget;
+    
+    public CubeDragSubscriber CubeDragSubscriber => _cubeDragSubscriber;
 
     // используется ленивая инициализация чтобы анимация не проигрывалась на старте
     // в качестве альтернативы мог бы выставить флаг defaultAutoPlay у класса DOTween в false,
@@ -75,7 +78,7 @@ public class CubeSpawnContainer : DragSubscriber<DraggingCube>
         transform.DOPunchScale(Vector3.one * 0.2f, 0.5f, 3);
     }
     
-    protected override void NotifyOnDrag(DraggingCube draggingItem)
+    public void NotifyOnDrag(DraggingCube draggingItem)
     {
         if (draggingItem.Value.Id != _cubeController.Id)
             return;

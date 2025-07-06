@@ -18,17 +18,17 @@ namespace Cube
         [SerializeField] private Image _image;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private GameObject _explosionAnimObject;
-        [SerializeField] private CubeDragListener _cubeDragListener;
+        [SerializeField] private DragEventsListener _dragListener;
         [SerializeField] private DragEventsRouter _dragEventsRouter;
-        [SerializeField] private DraggingCube _draggingCube;
+        [SerializeField] private DraggingItem _draggingItem;
         [SerializeField] private UnityEvent _onDestroyEvent;
         
         [Inject] private CubesPool _cubesPool;
         
         public CubeModel Model => _cubeModel;
         public DragEventsRouter DragEventsRouter => _dragEventsRouter;
-        public CubeDragListener DefaultDragTarget => _cubeDragListener;
-        public RectTransform RectTransform => _draggingCube.RectTransform;
+        public DragEventsListener DefaultDragTarget => _dragListener;
+        public RectTransform RectTransform => _draggingItem.RectTransform;
         public string Id { get; private set; }
 
         public void Setup(Color color)

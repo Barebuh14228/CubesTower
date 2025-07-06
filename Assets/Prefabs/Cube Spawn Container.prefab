@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2248635078798384964}
   - component: {fileID: 7348014717313137171}
   - component: {fileID: 4748936876423075145}
+  - component: {fileID: 8615873346189166842}
   - component: {fileID: 4306018815822451146}
   m_Layer: 5
   m_Name: Cube Spawn Container
@@ -108,7 +109,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476be7b05ba84839a0ebf6cc3087274d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cubeDragSubscriber: {fileID: 8615873346189166842}
   _layoutComponentsDisabler: {fileID: 7348014717313137171}
+--- !u!114 &8615873346189166842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000325711776950885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdab2d93a869494a8626014af1c891fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDrag:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4748936876423075145}
+        m_TargetAssemblyTypeName: CubeSpawnContainer, Assembly-CSharp
+        m_MethodName: NotifyOnDrag
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4306018815822451146
 MonoBehaviour:
   m_ObjectHideFlags: 0
