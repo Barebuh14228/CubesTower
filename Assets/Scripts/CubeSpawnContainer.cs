@@ -6,17 +6,22 @@ using DragAndDrop;
 using DragEventsUtils;
 using Settings;
 using UnityEngine;
+using Zenject;
 
 public class CubeSpawnContainer : MonoBehaviour
 {
     [SerializeField] private CubeDragSubscriber _cubeDragSubscriber;
+    [SerializeField] private CubeDropSubscriber _cubeDropSubscriber;
     [SerializeField] private LayoutComponentsDisabler _layoutComponentsDisabler;
     
     private CubeSettings _settings;
     private CubeController _cubeController;
     private DragEventsListener _dragTarget;
     
+    [Inject] private CubesPool _cubesPool;
+    
     public CubeDragSubscriber CubeDragSubscriber => _cubeDragSubscriber;
+    public CubeDropSubscriber CubeDropSubscriber => _cubeDropSubscriber;
 
     // используется ленивая инициализация чтобы анимация не проигрывалась на старте
     // в качестве альтернативы мог бы выставить флаг defaultAutoPlay у класса DOTween в false,
@@ -44,17 +49,12 @@ public class CubeSpawnContainer : MonoBehaviour
         _dragTarget = dragTarget;
     }
 
-    public CubeSettings GetSettings()
-    {
-        return _settings;
-    }
-
-    public bool IsEmpty()
+    private bool IsEmpty()
     {
         return _cubeController == null;
     }
-    
-    public void SetCube(CubeController cubeController, bool rebuildLayout = true)
+
+    private void SetCube(CubeController cubeController, bool rebuildLayout = true)
     {
         _cubeController = cubeController;
         _cubeController.transform.SetParent(transform, false);
@@ -72,13 +72,13 @@ public class CubeSpawnContainer : MonoBehaviour
         
         _cubeController.DragEventsRouter.SetTarget(_cubeController.DefaultDragTarget);
     }
-    
-    public void PlayAppearAnimation()
+
+    private void PlayAppearAnimation()
     {
         transform.DOPunchScale(Vector3.one * 0.2f, 0.5f, 3);
     }
     
-    public void NotifyOnDrag(DraggingCube draggingItem)
+    public void NotifyOnCubeDrag(DraggingCube draggingItem)
     {
         if (draggingItem.Value.Id != _cubeController.Id)
             return;
@@ -87,6 +87,24 @@ public class CubeSpawnContainer : MonoBehaviour
         _cubeController = null;
         
         UITextLogger.Instance.LogText(TextProvider.Get("release"));
+    }
+    
+    public void NotifyOnCubeDrop(DraggingCube draggingCube)
+    {
+        SpawnCube();
+    }
+
+    public void SpawnCube()
+    {
+        if (!IsEmpty())
+            return;
+        
+        var cube = _cubesPool.Get(_settings);
+            
+        cube.DragEventsRouter.SetTarget(_dragTarget);
+            
+        PlayAppearAnimation();
+        SetCube(cube);
     }
 
     public void OnPointerPush()

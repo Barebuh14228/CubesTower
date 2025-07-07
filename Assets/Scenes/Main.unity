@@ -502,8 +502,11 @@ MonoBehaviour:
   _settingsJson: {fileID: 4900000, guid: da9fc39e94297c8409c37d9df999fb45, type: 3}
   _useJSONPresets: 1
   _textsJson: {fileID: 4900000, guid: 1222293f1be2fdc4bb058feddf47e66a, type: 3}
+  _spawnContainerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
   _towerController: {fileID: 65334475}
-  _cubesSpawner: {fileID: 377002670}
+  _draggingController: {fileID: 244817368}
+  _defaultDragTarget: {fileID: 945802869}
+  _spawnersContainer: {fileID: 377002664}
   _saveDataManager: {fileID: 1933426963}
 --- !u!1 &156865015
 GameObject:
@@ -618,8 +621,7 @@ MonoBehaviour:
   _dropZones:
   - {fileID: 1185654597}
   - {fileID: 65334477}
-  _dropSubscribers:
-  - {fileID: 377002671}
+  _dropSubscribers: []
 --- !u!4 &244817369
 Transform:
   m_ObjectHideFlags: 0
@@ -860,10 +862,8 @@ GameObject:
   - component: {fileID: 377002665}
   - component: {fileID: 377002667}
   - component: {fileID: 377002669}
-  - component: {fileID: 377002670}
-  - component: {fileID: 377002671}
   m_Layer: 5
-  m_Name: Cubes Spanwer
+  m_Name: Horizontal Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -982,49 +982,6 @@ MonoBehaviour:
   - {fileID: 377002666}
   - {fileID: 377002665}
   _disableOnStart: 1
---- !u!114 &377002670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377002663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 482f55290808860459576403d2482ac5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnContainerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
-  _draggingController: {fileID: 244817368}
-  _defaultDragTarget: {fileID: 945802869}
-  _cubesPool: {fileID: 1780871544}
---- !u!114 &377002671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377002663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3715041f450549b7a14b3fb843af41eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onDrop:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 377002670}
-        m_TargetAssemblyTypeName: CubesSpawner, Assembly-CSharp
-        m_MethodName: NotifyOnCubeDrop
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &450613558
 GameObject:
   m_ObjectHideFlags: 0

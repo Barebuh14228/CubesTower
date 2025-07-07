@@ -49,5 +49,10 @@ namespace DragAndDrop
         {
             _dragSubscribers.Add(dragSubscriber);
         }
+        
+        public void AddDropSubscriber(DropSubscriber dropSubscriber)
+        {
+            _dropSubscribers.Add(dropSubscriber);
+        }
     }
 }
