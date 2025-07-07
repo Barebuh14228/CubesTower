@@ -19,9 +19,7 @@ public class CubeSpawnContainer : MonoBehaviour
     private DragEventsListener _dragTarget;
     
     [Inject] private CubesPool _cubesPool;
-    
-    public CubeDragSubscriber CubeDragSubscriber => _cubeDragSubscriber;
-    public CubeDropSubscriber CubeDropSubscriber => _cubeDropSubscriber;
+    [Inject] private DraggingController _draggingController;
 
     // используется ленивая инициализация чтобы анимация не проигрывалась на старте
     // в качестве альтернативы мог бы выставить флаг defaultAutoPlay у класса DOTween в false,
@@ -37,6 +35,9 @@ public class CubeSpawnContainer : MonoBehaviour
                 .OnComplete(ReleaseCube)
                 .SetAutoKill(false)
         );
+        
+        _draggingController.AddDragSubscriber(_cubeDragSubscriber);
+        _draggingController.AddDropSubscriber(_cubeDropSubscriber);
     }
 
     public void SetSettings(CubeSettings settings)

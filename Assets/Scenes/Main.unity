@@ -504,7 +504,6 @@ MonoBehaviour:
   _textsJson: {fileID: 4900000, guid: 1222293f1be2fdc4bb058feddf47e66a, type: 3}
   _spawnContainerPrefab: {fileID: 4748936876423075145, guid: 686d0ea367302d54ca7e9dbcc7898e57, type: 3}
   _towerController: {fileID: 65334475}
-  _draggingController: {fileID: 244817368}
   _defaultDragTarget: {fileID: 945802869}
   _spawnersContainer: {fileID: 377002664}
   _saveDataManager: {fileID: 1933426963}

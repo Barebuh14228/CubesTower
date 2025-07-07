@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CubeSpawnContainer _spawnContainerPrefab;
     [SerializeField] private TowerController _towerController;
     
-    [SerializeField] private DraggingController _draggingController;
     [SerializeField] private DragEventsListener _defaultDragTarget;
     [SerializeField] private Transform _spawnersContainer;
     
@@ -51,9 +50,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < containers.Length; i++)
         {
             containers[i] = CreateSpawner(settingsArray[i]);
-            _draggingController.AddDragSubscriber(containers[i].CubeDragSubscriber);
-            _draggingController.AddDropSubscriber(containers[i].CubeDropSubscriber);
-
             containers[i].SpawnCube();
         }
     }
